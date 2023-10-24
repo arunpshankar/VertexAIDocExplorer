@@ -1,17 +1,32 @@
 from typing import List, Dict, Optional, Any
 from src.config.logging import setup_logger
+from tqdm import tqdm
 import subprocess
 import requests
+import yaml
+import json
 import os
 
 
 # Setting up the logger
 logger = setup_logger()
 
-# Constants
-PROJECT_ID = 'arun-genai-bb'
-DATA_STORE_ID = 'moodys-search_1697576889487'
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './credentials/vai-key.json'
+
+def load_config() -> Dict[str, Any]:
+    """
+    Load configuration from the config.yaml file.
+    
+    Returns:
+        dict: The configuration data.
+    """
+    with open("config/config.yaml", 'r') as stream:
+        config_data = yaml.safe_load(stream)
+    return config_data
+
+config = load_config()
+PROJECT_ID = config['project_id']
+DATA_STORE_ID = config['datastore_id']
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config['credentials_json']
 
 
 def get_access_token() -> str:
@@ -26,6 +41,36 @@ def get_access_token() -> str:
     token = subprocess.check_output(cmd).decode('utf-8').strip()
     logger.info("Access token obtained successfully.")
     return token
+
+
+from typing import Dict
+
+class DiscoveryResponse:
+    def __init__(self, result: Dict[str, Any]):
+        doc_data = result['document']['derivedStructData']
+        self.title = doc_data['title']
+        self.link = doc_data['link']
+        self.snippet = doc_data['snippets'][0]['snippet']
+        metatags = doc_data['pagemap']['metatags'][0]
+        self.p_title = metatags['title']
+        self.subject = metatags['subject']
+        self.author = metatags['author']
+        self.creationdate = metatags['creationdate']
+        
+    def log_details(self):
+        logger.info(f'Title: {self.title}')
+
+    def to_dict(self) -> Dict[str, str]:
+        return {
+            "title": self.title,
+            "link": self.link,
+            "snippet": self.snippet,
+            "p_title": self.p_title,
+            "subject": self.subject,
+            "author": self.author,
+            "creationdate": self.creationdate
+        }
+
 
 
 def search_discovery_engine(query: str, page_size: int = 10, page_token: Optional[str] = None) -> Dict[str, Any]:
@@ -105,12 +150,9 @@ def save_to_jsonl(results: List[Dict[str, Any]], filename: str) -> None:
     """
     logger.info(f"Saving results to {filename}...")
     with open(filename, 'w') as f:
-        for result in results:
-            doc_data = result['document']['derivedStructData']
-            title = doc_data['title']
-            link = doc_data['link']
-            # Writing as JSON lines
-            f.write(f'{{"title": "{title}", "link": "{link}"}}\n')
+        for result in tqdm(results, desc="Saving results"):
+            response = DiscoveryResponse(result)
+            f.write(json.dumps(response.to_dict()) + '\n')
     logger.info(f"Saved {len(results)} results to {filename}.")
 
 

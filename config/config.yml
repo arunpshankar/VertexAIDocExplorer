@@ -1,0 +1,3 @@
+project_id: 'arun-genai-bb'
+datastore_id: 'moodys-search_1697576889487'
+credentials_json: './credentials/vai-key.json'
