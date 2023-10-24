@@ -1,6 +1,6 @@
 # VertexAIDocExplorer
 
-A two-tiered search application using VertexAI Search: First, to locate PDF documents on provided URLs and secondly, to perform question-answering on indexed documents using a Large Language Model.
+A two-tiered search pipeline using VertexAI Search: First, to locate PDF documents on provided URLs and secondly, to perform question-answering on indexed documents using a Large Language Model (`Google's SoTA PaLM-2 model`).
 
 ## Features
 
@@ -19,17 +19,17 @@ A two-tiered search application using VertexAI Search: First, to locate PDF docu
 ### Installation
 
 1. Clone this repository:
-   ```
+   ```bash
    git clone https://github.com/[YourGitHubUsername]/VertexDocSearcher.git
    ```
 
 2. Navigate to the project directory:
-   ```
+   ```bash
    cd VertexAIDocExplorer
    ```
 
 3. Install the required dependencies:
-   ```
+   ```bash
    [installation steps...]
    ```
 
