@@ -43,8 +43,6 @@ def get_access_token() -> str:
     return token
 
 
-from typing import Dict
-
 class DiscoveryResponse:
     def __init__(self, result: Dict[str, Any]):
         doc_data = result['document']['derivedStructData']
