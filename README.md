@@ -1,6 +1,6 @@
-# VertexDocSearcher
+# VertexAIDocExplorer
 
-A two-tiered search application using VertexAI Search: First, to locate PDF documents on provided URLs and secondly, to perform question-answering on indexed documents using a Language Model.
+A two-tiered search application using VertexAI Search: First, to locate PDF documents on provided URLs and secondly, to perform question-answering on indexed documents using a Large Language Model.
 
 ## Features
 
@@ -25,7 +25,7 @@ A two-tiered search application using VertexAI Search: First, to locate PDF docu
 
 2. Navigate to the project directory:
    ```
-   cd VertexDocSearcher
+   cd VertexAIDocExplorer
    ```
 
 3. Install the required dependencies:
