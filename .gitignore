@@ -3,6 +3,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Venv
+.VertexAIDocExplorer
+.VertexAIDocExplorer/
+
+# credentials 
+credentials
+credentials/
+
 # C extensions
 *.so
 
