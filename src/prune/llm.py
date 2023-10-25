@@ -46,3 +46,8 @@ class LLM:
         response = self.model(prompt)
         completion = response.content.strip()
         return completion
+
+
+if __name__ == '__main__':
+    llm = LLM()
+    llm.classify('')
