@@ -1,16 +1,31 @@
 from src.config.logging import logger
-from typing import Dict
-from typing import Any
+from typing import Dict, Any
 import subprocess
 import yaml
 import os
 
 class Config:
-    def __init__(self, config_path: str = "config/config.yaml"):
-        self.config = self._load_config(config_path)
-        self.PROJECT_ID = self.config['project_id']
-        self.DATA_STORE_ID = self.config['datastore_id']
-        self.set_google_credentials(self.config['credentials_json'])
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Config, cls).__new__(cls)
+            # The following line ensures that the __init__ method is only called once.
+            cls._instance.__initialized = False
+        return cls._instance
+    
+    def __init__(self, config_path: str = "./config/config.yml"):
+        """
+        Initialize the Config class.
+
+        Args:
+        - config_path (str): Path to the YAML configuration file.
+        """
+        self.__config = self._load_config(config_path)
+        self.PROJECT_ID = self.__config['project_id']
+        self.SITE_SEARCH_DATA_STORE_ID = self.__config['site_search_datastore_id']
+        self._set_google_credentials(self.__config['credentials_json'])
+        self.ACCESS_TOKEN = self._set_access_token()
 
     @staticmethod
     def _load_config(config_path: str) -> Dict[str, Any]:
@@ -23,11 +38,15 @@ class Config:
         Returns:
         - dict: Loaded configuration data.
         """
-        with open(config_path, 'r') as file:
-            return yaml.safe_load(file)
+        try:
+            with open(config_path, 'r') as file:
+                return yaml.safe_load(file)
+        except Exception as e:
+            logger.error(f"Failed to load the configuration file. Error: {e}")
+            raise
 
     @staticmethod
-    def set_google_credentials(credentials_path: str) -> None:
+    def _set_google_credentials(credentials_path: str) -> None:
         """
         Set the Google application credentials environment variable.
 
@@ -37,7 +56,7 @@ class Config:
         os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_path
 
     @staticmethod
-    def get_access_token() -> str:
+    def _set_access_token() -> str:
         """
         Fetch an access token for authentication.
 
@@ -46,10 +65,13 @@ class Config:
         """
         logger.info("Fetching access token...")
         cmd = ["gcloud", "auth", "print-access-token"]
-        token = subprocess.check_output(cmd).decode('utf-8').strip()
-        logger.info("Access token obtained successfully.")
-        return token
+        try:
+            token = subprocess.check_output(cmd).decode('utf-8').strip()
+            logger.info("Access token obtained successfully.")
+            return token
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Failed to fetch access token. Error: {e}")
+            raise
 
 
 config = Config()
-access_token = config.get_access_token()

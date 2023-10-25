@@ -1,43 +1,15 @@
-from typing import List, Dict, Optional, Any
 from src.config.logging import logger
+from src.config.setup import config
+from typing import Optional
+from typing import List
+from typing import Dict
+from typing import Any
 from tqdm import tqdm
 import subprocess
 import requests
-import yaml
 import json
+import yaml
 import os
-
-
-def load_config() -> Dict[str, Any]:
-    """
-    Load configuration from the config.yaml file.
-    
-    Returns:
-        dict: The configuration data.
-    """
-    with open("config/config.yaml", 'r') as stream:
-        config_data = yaml.safe_load(stream)
-    return config_data
-
-config = load_config()
-PROJECT_ID = config['project_id']
-DATA_STORE_ID = config['datastore_id']
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config['credentials_json']
-
-
-def get_access_token() -> str:
-    """
-    Fetch an access token for authentication.
-    
-    Returns:
-        str: The fetched access token.
-    """
-    logger.info("Fetching access token...")
-    cmd = ["gcloud", "auth", "print-access-token"]
-    token = subprocess.check_output(cmd).decode('utf-8').strip()
-    logger.info("Access token obtained successfully.")
-    return token
-
 
 class DiscoveryResponse:
     def __init__(self, result: Dict[str, Any]):
