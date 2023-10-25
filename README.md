@@ -36,3 +36,6 @@ A two-tiered search pipeline using VertexAI Search: First, to locate PDF documen
 ### Usage
 
 [Provide a step-by-step guide on how to use the application.]
+
+
+export PYTHONPATH=$PYTHONPATH:.

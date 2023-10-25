@@ -52,16 +52,15 @@ def search_discovery_engine(query: str, page_size: int = 10, page_token: Optiona
         dict: The JSON response from the Discovery Engine.
     """
     logger.info(f"Searching Discovery Engine with query: `{query}`...")
-    access_token = get_access_token()
-    url = f"https://discoveryengine.googleapis.com/v1beta/projects/{PROJECT_ID}/locations/global/collections/default_collection/dataStores/{DATA_STORE_ID}/servingConfigs/default_search:search"
+    url = f"https://discoveryengine.googleapis.com/v1beta/projects/{config.PROJECT_ID}/locations/global/collections/default_collection/dataStores/{config.SITE_SEARCH_DATA_STORE_ID}/servingConfigs/default_search:search"
     
     headers = {
-        "Authorization": f"Bearer {access_token}",
+        "Authorization": f"Bearer {config.ACCESS_TOKEN}",
         "Content-Type": "application/json"
     }
     
     payload = {
-        "servingConfig": f"projects/{PROJECT_ID}/locations/global/collections/default_collection/dataStores/{DATA_STORE_ID}/servingConfigs/default_search",
+        "servingConfig": f"projects/{PROJECT_ID}/locations/global/collections/default_collection/dataStores/{config.SITE_SEARCH_DATA_STORE_ID}/servingConfigs/default_search",
         "query": query,
         "pageSize": page_size
     }
