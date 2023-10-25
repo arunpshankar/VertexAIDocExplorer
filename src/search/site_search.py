@@ -1,15 +1,11 @@
 from typing import List, Dict, Optional, Any
-from src.config.logging import setup_logger
+from src.config.logging import logger
 from tqdm import tqdm
 import subprocess
 import requests
 import yaml
 import json
 import os
-
-
-# Setting up the logger
-logger = setup_logger()
 
 
 def load_config() -> Dict[str, Any]:

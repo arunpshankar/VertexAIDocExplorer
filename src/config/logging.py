@@ -21,3 +21,6 @@ def setup_logger(log_filename="app.log", log_dir="logs"):
 
     # Return the configured logger
     return logging.getLogger()
+
+
+logger = setup_logger()
