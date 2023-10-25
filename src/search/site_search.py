@@ -8,50 +8,30 @@ from tqdm import tqdm
 import requests
 import json
 
+
 class DiscoveryResponse:
     def __init__(self, result: Dict[str, Any]):
-        doc_data = result['document']['derivedStructData']
-        self.title = doc_data['title']
-        self.link = doc_data['link']
-        self.snippet = doc_data['snippets'][0]['snippet']
-        metatags = doc_data['pagemap']['metatags'][0]
-        self.metatags_title = metatags['title']
-        self.subject = metatags['subject']
-        self.author = metatags['author']
-        self.creationdate = metatags['creationdate']
-    
-    def _format_pdf_date_to_string(self, pdf_date_str):
-        """
-        Formats a PDF date string to the desired format.
+        doc_data = result.get('document', {}).get('derivedStructData', {})
         
-        Args:
-        - pdf_date_str (str): The PDF date string (e.g., "D:20230220155707Z").
+        self.title = doc_data.get('title', None)
+        self.link = doc_data.get('link', None)
+        snippets = doc_data.get('snippets', [])
+        self.snippet = snippets[0]['snippet'] if snippets else None
         
-        Returns:
-        - str: Formatted date string (e.g., "01 Jan 2023").
-        """
-        # Extract year, month, and day from the string
-        year = int(pdf_date_str[2:6])
-        month = int(pdf_date_str[6:8])
-        day = int(pdf_date_str[8:10])
-        
-        # Define month names
-        month_names = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        
-        return f"{day:02d} {month_names[month-1]} {year}"
-
+        metatags = doc_data.get('pagemap', {}).get('metatags', [{}])[0]
+        self.metatags_title = metatags.get('title', None)
+        self.subject = metatags.get('subject', None)
+        self.creationdate = metatags.get('creationdate', None)
 
     def to_dict(self) -> Dict[str, str]:
         return {
             "title": self.title,
             "link": self.link,
             "snippet": self.snippet,
-            "metatags_title": self.p_title,
+            "metatags_title": self.metatags_title,
             "subject": self.subject,
-            "author": self.author,
-            "creationdate": self._format_pdf_date_to_string(self.creationdate)
+            "creationdate": self.creationdate
         }
-
 
 
 def search_discovery_engine(query: str, page_size: int = 10, page_token: Optional[str] = None) -> Dict[str, Any]:
@@ -134,9 +114,3 @@ def save_to_jsonl(results: List[Dict[str, Any]], filename: str) -> None:
             response = DiscoveryResponse(result)
             f.write(json.dumps(response.to_dict()) + '\n')
     logger.info(f"Saved {len(results)} results to {filename}.")
-
-
-# Sample usage
-query = 'filetype:pdf hsbc disclosure reports'
-#all_results = fetch_all_results(query)
-#save_to_jsonl(all_results, './data/results.jsonl')
