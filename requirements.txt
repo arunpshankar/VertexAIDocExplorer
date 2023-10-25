@@ -25,9 +25,10 @@ grpc-google-iam-v1==0.12.6
 grpcio==1.59.0
 grpcio-status==1.59.0
 idna==3.4
+jsonlines==4.0.0
 jsonpatch==1.33
 jsonpointer==2.4
-langchain==0.0.322
+langchain==0.0.316
 langsmith==0.0.51
 marshmallow==3.20.1
 multidict==6.0.4
