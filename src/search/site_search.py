@@ -15,7 +15,7 @@ class DiscoveryResponse:
         self.link = doc_data['link']
         self.snippet = doc_data['snippets'][0]['snippet']
         metatags = doc_data['pagemap']['metatags'][0]
-        self.p_title = metatags['title']
+        self.metatags_title = metatags['title']
         self.subject = metatags['subject']
         self.author = metatags['author']
         self.creationdate = metatags['creationdate']
@@ -46,7 +46,7 @@ class DiscoveryResponse:
             "title": self.title,
             "link": self.link,
             "snippet": self.snippet,
-            "p_title": self.p_title,
+            "metatags_title": self.p_title,
             "subject": self.subject,
             "author": self.author,
             "creationdate": self._format_pdf_date_to_string(self.creationdate)

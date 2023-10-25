@@ -18,9 +18,11 @@ def site_search_test(query: str) -> None:
         response = search_discovery_engine(query=query)
         results = response.get('results', [])
 
+        print(f'==================================================== SEARCH HITS ====================================================')
         for result in results:
             discovery_response = DiscoveryResponse(result)
             pprint(discovery_response.to_dict())
+            print('-' * 120)
     except Exception as e:
         logger.error(f"Error while searching site: {e}")
 
