@@ -60,7 +60,7 @@ def search_discovery_engine(query: str, page_size: int = 10, page_token: Optiona
     }
     
     payload = {
-        "servingConfig": f"projects/{PROJECT_ID}/locations/global/collections/default_collection/dataStores/{config.SITE_SEARCH_DATA_STORE_ID}/servingConfigs/default_search",
+        "servingConfig": f"projects/{config.PROJECT_ID}/locations/global/collections/default_collection/dataStores/{config.SITE_SEARCH_DATA_STORE_ID}/servingConfigs/default_search",
         "query": query,
         "pageSize": page_size
     }
@@ -123,5 +123,5 @@ def save_to_jsonl(results: List[Dict[str, Any]], filename: str) -> None:
 
 # Sample usage
 query = 'filetype:pdf hsbc disclosure reports'
-all_results = fetch_all_results(query)
-save_to_jsonl(all_results, './data/results.jsonl')
+#all_results = fetch_all_results(query)
+#save_to_jsonl(all_results, './data/results.jsonl')

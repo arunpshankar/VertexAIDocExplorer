@@ -1,6 +1,30 @@
-from src.config.setup import config
+from src.search.site_search import search_discovery_engine
+from src.search.site_search import DiscoveryResponse
+from src.config.logging import logger 
+from pprint import pprint
 
 
-print(config.ACCESS_TOKEN)
-print(config.PROJECT_ID)
-print(config.SITE_SEARCH_DATA_STORE_ID)
+def site_search_test(query: str) -> None:
+    """
+    Search the site based on the given query and log the results.
+
+    Args:
+        query (str): Search query.
+
+    Returns:
+        None
+    """
+    try:
+        response = search_discovery_engine(query=query)
+        results = response.get('results', [])
+
+        for result in results:
+            discovery_response = DiscoveryResponse(result)
+            pprint(discovery_response.to_dict())
+    except Exception as e:
+        logger.error(f"Error while searching site: {e}")
+
+
+if __name__ == "__main__":
+    query = 'filetype:pdf hsbc disclosure reports'
+    site_search_test(query)
