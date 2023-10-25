@@ -5,11 +5,8 @@ from typing import List
 from typing import Dict
 from typing import Any
 from tqdm import tqdm
-import subprocess
 import requests
 import json
-import yaml
-import os
 
 class DiscoveryResponse:
     def __init__(self, result: Dict[str, Any]):
@@ -22,9 +19,27 @@ class DiscoveryResponse:
         self.subject = metatags['subject']
         self.author = metatags['author']
         self.creationdate = metatags['creationdate']
+    
+    def _format_pdf_date_to_string(self, pdf_date_str):
+        """
+        Formats a PDF date string to the desired format.
         
-    def log_details(self):
-        logger.info(f'Title: {self.title}')
+        Args:
+        - pdf_date_str (str): The PDF date string (e.g., "D:20230220155707Z").
+        
+        Returns:
+        - str: Formatted date string (e.g., "01 Jan 2023").
+        """
+        # Extract year, month, and day from the string
+        year = int(pdf_date_str[2:6])
+        month = int(pdf_date_str[6:8])
+        day = int(pdf_date_str[8:10])
+        
+        # Define month names
+        month_names = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        
+        return f"{day:02d} {month_names[month-1]} {year}"
+
 
     def to_dict(self) -> Dict[str, str]:
         return {
@@ -34,7 +49,7 @@ class DiscoveryResponse:
             "p_title": self.p_title,
             "subject": self.subject,
             "author": self.author,
-            "creationdate": self.creationdate
+            "creationdate": self._format_pdf_date_to_string(self.creationdate)
         }
 
 
