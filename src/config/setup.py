@@ -21,6 +21,10 @@ class Config:
         Args:
         - config_path (str): Path to the YAML configuration file.
         """
+        if self.__initialized:
+            return
+        self.__initialized = True
+        
         self.__config = self._load_config(config_path)
         self.PROJECT_ID = self.__config['project_id']
         self.SITE_SEARCH_DATA_STORE_ID = self.__config['site_search_datastore_id']
