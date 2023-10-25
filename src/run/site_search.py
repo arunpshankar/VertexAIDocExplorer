@@ -37,6 +37,8 @@ def site_search_paginate_test(query: str) -> None:
             discovery_response = DiscoveryResponse(result)
             pprint(discovery_response.to_dict())
             print('-' * 120)
+
+        save_to_jsonl(results, './data/site-search-results.jsonl')
     except Exception as e:
         logger.error(f"Error while testing site search pagination: {e}")
 
@@ -45,5 +47,5 @@ if __name__ == "__main__":
     query = 'filetype:pdf hsbc disclosure reports'
     # site_search_test(query)
 
-    query = 'filetype:pdf iob disclosure reports'
+    query = 'filetype:pdf brooklinebancorp disclosure reports'
     site_search_paginate_test(query)
