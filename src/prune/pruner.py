@@ -13,6 +13,7 @@ class Pruner:
     def __init__(self) -> None:
         """Initializes the Pruner with an instance of LLM for classification."""
         self.llm = LLM()
+        logger.info("Pruner initialized.")
 
     def _parse_llm_response(self, response: str) -> dict:
         """
@@ -37,20 +38,30 @@ class Pruner:
         output_file_path = './data/site-search-results-pruned.jsonl'
         
         try:
+            logger.info(f"Starting processing of file: {site_search_results_file_path}")
+            
             with jsonlines.open(site_search_results_file_path, mode='r') as reader, \
                  jsonlines.open(output_file_path, mode='w') as writer:
                 
                 for entry in reader:
+                    link = entry.get('link')
+                    logger.info(f"Processing entry with link: {link}")
+                    
                     response = self.llm.classify(entry)
                     parsed_response = self._parse_llm_response(response)
-                    print(parsed_response)
+                    
+                    logger.info(f"Classification result: {parsed_response.get('classification', 'N/A')}")
+                    
                     # Check if the 'classification' key exists and isn't 'unclassified'
                     if parsed_response.get('classification', '').lower() != 'unclassified':
                         entry.update(parsed_response)
                         writer.write(entry)
-
+                        logger.info(f"Entry with link {link} written to output file.")
+            
+            logger.info(f"Finished processing of file: {site_search_results_file_path}")
+            
         except Exception as e:
-            logger.error(f"Error processing file {site_search_results_file_path}: {e}")
+            logger.error(f"Error processing file {site_search_results_file_path}. Entry: {entry}. Error: {e}")
 
 if __name__ == '__main__':
     pruner = Pruner()
