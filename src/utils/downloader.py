@@ -1,5 +1,4 @@
 from aiofiles import open as aio_open
-from pathlib import Path
 import jsonlines
 import aiohttp
 import asyncio
@@ -40,7 +39,7 @@ def sanitize_filename(filename):
     """
     return "".join([c for c in filename if c.isalpha() or c.isdigit() or c in (' ', '.', '_')]).rstrip()
 
-async def main(jsonl_path, output_folder):
+async def download(jsonl_path, output_folder):
     """
     Main coroutine to read the JSONL file, download and save the PDFs.
 
@@ -57,16 +56,10 @@ async def main(jsonl_path, output_folder):
         # Read the JSONL file
         with jsonlines.open(jsonl_path) as reader:
             for item in reader:
+                print(item)
                 title = sanitize_filename(item["title"]) + ".pdf"
                 destination = output_folder / title
                 tasks.append(download_file(session, item["link"], destination))
         
         # Gather all the download tasks and execute them concurrently
         await asyncio.gather(*tasks)
-
-if __name__ == "__main__":
-    jsonl_path = Path("./data/results.jsonl")
-    output_folder = Path("./data/pdfs")
-
-    # Run the main coroutine using an asyncio event loop
-    asyncio.run(main(jsonl_path, output_folder))

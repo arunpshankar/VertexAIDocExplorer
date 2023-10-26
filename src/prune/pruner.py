@@ -54,7 +54,13 @@ class Pruner:
                     
                     # Check if the 'classification' key exists and isn't 'unclassified'
                     if parsed_response.get('classification', '').lower() != 'unclassified':
-                        entry.update(parsed_response)
+                        # Update the entry with the parsed response
+                        for key, value in parsed_response.items():
+                            entry[key] = value
+                        # Ensure the 'link' from the original entry is retained
+                        entry['link'] = link
+
+                        # Write the updated entry to the output file
                         writer.write(entry)
                         logger.info(f"Entry with link {link} written to output file.")
             
@@ -62,7 +68,3 @@ class Pruner:
             
         except Exception as e:
             logger.error(f"Error processing file {site_search_results_file_path}. Entry: {entry}. Error: {e}")
-
-if __name__ == '__main__':
-    pruner = Pruner()
-    pruner.prune('./data/site-search-results.jsonl')
