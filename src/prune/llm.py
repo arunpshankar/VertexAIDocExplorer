@@ -6,7 +6,7 @@ from src.config.logging import logger
 from src.config.setup import config
 from typing import List, Dict
 import jsonlines
-import json
+
 
 MODEL_NAME = 'chat-bison'
 
@@ -24,8 +24,8 @@ class LLM:
             return ChatVertexAI(model_name=MODEL_NAME, temperature=0, max_output_tokens=512, verbose=True)
         except Exception as e:
             logger.error(f"Failed to load the model: {e}")
-            raise
 
+    
     def _load_topics_from_jsonl(self, filepath: str) -> List[str]:
         """Load topics from the provided JSONL file."""
         topics = []
@@ -35,7 +35,6 @@ class LLM:
                     topics.append(topic)
         except Exception as e:
             logger.error(f"Failed to load topics from {filepath}: {e}")
-            raise
         return topics
     
     def _get_topics_text(self) -> str:

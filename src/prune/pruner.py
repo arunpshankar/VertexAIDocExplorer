@@ -1,44 +1,67 @@
+import json
+import jsonlines
 from src.config.logging import logger
 from src.prune.llm import LLM
-import json
-import json
-
 
 class Pruner:
-    def __init__(self):
+    def __init__(self) -> None:
         self.llm = LLM()
 
-    def is_pdf_url(self, url):
+    def _is_pdf_url(self, url: str) -> bool:
         """
         Check if the URL points to a PDF.
+        
+        Args:
+        - url (str): The URL to check.
+        
+        Returns:
+        - bool: True if the URL points to a PDF, otherwise False.
         """
         return url.lower().endswith('.pdf')
 
-    def classify_content(self, content, child_url, llm_instance):
+    def _parse_llm_response(self, response: str) -> dict:
         """
-        Classify the content into one of the specified topics using the LLM prompt.
-        """
-        prompt = llm_instance.construct_prompt(content, child_url)
-        response_str = llm_instance.classify(prompt)
-        clean_response_str = response_str.replace('```JSON\n', '').replace('```', '').strip()
+        Parse the response from LLM.
         
-        # Check the content before parsing
-        if not clean_response_str:
-            print(f"No content returned from LLM for URL: {child_url}")
-            return 'Unclassified', 'No content to classify'
+        Args:
+        - response (str): The raw response from LLM.
+        
+        Returns:
+        - dict: The parsed response as a dictionary.
+        """
+        cleaned_response = response.replace('```JSON\n', '').replace('```', '').strip()
+        return json.loads(cleaned_response)
 
+    def prune(self, site_search_results_file_path: str) -> None:
+        """
+        Read the provided file, classify its content, and write back the updated content.
+
+        Args:
+        - site_search_results_file_path (str): Path to the file containing site search results.
+        """
+        output_file_path = './data/site-search-results-pruned.jsonl'
+        
         try:
-            classification_json = json.loads(clean_response_str)
-            classification = classification_json['classification']
-            rationale = classification_json['rationale']
-            return classification, rationale
-        except json.JSONDecodeError:
-            print(f"Error decoding JSON for URL: {child_url}. Content: {clean_response_str}")
-            return 'Unclassified', 'Error decoding response'
-        
+            with jsonlines.open(site_search_results_file_path, mode='r') as reader, \
+                 jsonlines.open(output_file_path, mode='w') as writer:
+                
+                for line in reader:
+                    # Check for PDF URL in the 'link' field
+                    link = line.get('link') 
+                    if link and self._is_pdf_url(link):
+                        # If it's a PDF link, classify it
+                        response = self.llm.classify(line)
+                        parsed_response = self._parse_llm_response(response)
+                        
+                        # Update the line with the response and write to a new file
+                        line.update(parsed_response)
 
-    def prune(self):
-        pass
+                    writer.write(line)
+
+        except Exception as e:
+            logger.error(f"Error processing file {site_search_results_file_path}: {e}")
 
 if __name__ == '__main__':
-    pass
+    pruner = Pruner()
+    print(pruner._is_pdf_url('http://dsfsdf.com/x.pdf'))
+    pruner.prune('./data/site-search-results.jsonl')

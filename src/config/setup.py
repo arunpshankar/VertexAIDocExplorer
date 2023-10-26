@@ -48,7 +48,6 @@ class Config:
                 return yaml.safe_load(file)
         except Exception as e:
             logger.error(f"Failed to load the configuration file. Error: {e}")
-            raise
 
     @staticmethod
     def _set_google_credentials(credentials_path: str) -> None:
@@ -76,7 +75,6 @@ class Config:
             return token
         except subprocess.CalledProcessError as e:
             logger.error(f"Failed to fetch access token. Error: {e}")
-            raise
 
 
 config = Config()
