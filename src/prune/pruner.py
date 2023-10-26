@@ -1,33 +1,28 @@
-import json
-import jsonlines
 from src.config.logging import logger
 from src.prune.llm import LLM
+import jsonlines
+import json 
 
 class Pruner:
+    """
+    A utility class responsible for pruning site search results.
+    
+    This class reads from a provided JSONL file containing site search results, classifies the results based on the 
+    content of the 'link' field, and writes back the updated results to a new JSONL file.
+    """
     def __init__(self) -> None:
+        """Initializes the Pruner with an instance of LLM for classification."""
         self.llm = LLM()
-
-    def _is_pdf_url(self, url: str) -> bool:
-        """
-        Check if the URL points to a PDF.
-        
-        Args:
-        - url (str): The URL to check.
-        
-        Returns:
-        - bool: True if the URL points to a PDF, otherwise False.
-        """
-        return url.lower().endswith('.pdf')
 
     def _parse_llm_response(self, response: str) -> dict:
         """
         Parse the response from LLM.
         
         Args:
-        - response (str): The raw response from LLM.
+            response (str): The raw response from LLM.
         
         Returns:
-        - dict: The parsed response as a dictionary.
+            dict: The parsed response as a dictionary.
         """
         cleaned_response = response.replace('```JSON\n', '').replace('```', '').strip()
         return json.loads(cleaned_response)
@@ -37,7 +32,7 @@ class Pruner:
         Read the provided file, classify its content, and write back the updated content.
 
         Args:
-        - site_search_results_file_path (str): Path to the file containing site search results.
+            site_search_results_file_path (str): Path to the file containing site search results.
         """
         output_file_path = './data/site-search-results-pruned.jsonl'
         
@@ -45,23 +40,18 @@ class Pruner:
             with jsonlines.open(site_search_results_file_path, mode='r') as reader, \
                  jsonlines.open(output_file_path, mode='w') as writer:
                 
-                for line in reader:
-                    # Check for PDF URL in the 'link' field
-                    link = line.get('link') 
-                    if link and self._is_pdf_url(link):
-                        # If it's a PDF link, classify it
-                        response = self.llm.classify(line)
-                        parsed_response = self._parse_llm_response(response)
-                        
-                        # Update the line with the response and write to a new file
-                        line.update(parsed_response)
-
-                    writer.write(line)
+                for entry in reader:
+                    response = self.llm.classify(entry)
+                    parsed_response = self._parse_llm_response(response)
+                    print(parsed_response)
+                    # Check if the 'classification' key exists and isn't 'unclassified'
+                    if parsed_response.get('classification', '').lower() != 'unclassified':
+                        entry.update(parsed_response)
+                        writer.write(entry)
 
         except Exception as e:
             logger.error(f"Error processing file {site_search_results_file_path}: {e}")
 
 if __name__ == '__main__':
     pruner = Pruner()
-    print(pruner._is_pdf_url('http://dsfsdf.com/x.pdf'))
     pruner.prune('./data/site-search-results.jsonl')
