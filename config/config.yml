@@ -2,3 +2,4 @@ project_id: 'arun-genai-bb'
 credentials_json: './credentials/key.json'
 site_search_datastore_id: 'moodys-search_1697576889487'
 doc_search_datastore_id: 'xxxxx'
+doc_search_bucket: fin-pdfs

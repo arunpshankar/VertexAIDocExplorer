@@ -1,56 +1,58 @@
 from google.oauth2.service_account import Credentials as ServiceAccountCredentials
+from src.config.logging import logger
+from src.config.setup import config
 from google.cloud import storage
 from pathlib import Path
+from typing import Union
 
 
-PROJECT_ID = 'arun-genai-bb'
-
-def initialize_gcs_client(credentials_path):
+def initialize_gcs_client() -> storage.Client:
     """
     Initialize the Google Cloud Storage client using provided service account credentials.
-
-    Args:
-        credentials_path (Path): Path to the service account credentials (JSON) file.
 
     Returns:
         google.cloud.storage.client.Client: Initialized GCS client.
     """
-    credentials = ServiceAccountCredentials.from_service_account_file(credentials_path)
-    return storage.Client(credentials=credentials, project=PROJECT_ID)
+    try:
+        credentials = ServiceAccountCredentials.from_service_account_file(config.CREDENTIALS_PATH)
+        return storage.Client(credentials=credentials, project=config.PROJECT_ID)
+    except Exception as e:
+        logger.error(f"Failed to initialize GCS client: {e}")
+        raise
 
 
-def upload_to_gcs(client, bucket_name, source_file, destination_blob_name):
+def upload_to_gcs(client: storage.Client, source_file: Union[str, Path], destination_blob_name: str) -> None:
     """
     Uploads a file to the specified GCS bucket.
 
     Args:
         client (google.cloud.storage.client.Client): Initialized GCS client.
-        bucket_name (str): Name of the GCS bucket.
-        source_file (Path): Path to the file to be uploaded.
+        source_file (Union[str, Path]): Path to the file to be uploaded.
         destination_blob_name (str): Desired blob name in the GCS bucket.
     """
-    bucket = client.get_bucket(bucket_name)
-    blob = bucket.blob(destination_blob_name)
-    blob.upload_from_filename(source_file)
+    try:
+        bucket = client.get_bucket(config.DOC_SEARCH_BUCKET)
+        blob = bucket.blob(destination_blob_name)
+        blob.upload_from_filename(str(source_file))
+        logger.info(f"Successfully uploaded {source_file} to {config.DOC_SEARCH_BUCKET}/{destination_blob_name}")
+    except Exception as e:
+        logger.error(f"Failed to upload {source_file} to GCS: {e}")
 
-def main(pdf_folder, bucket_name, credentials_path):
+
+def upload(pdf_folder: Union[str, Path]) -> None:
     """
     Main function to iterate over PDFs and upload them to GCS.
 
     Args:
-        pdf_folder (Path): Path to the folder containing PDFs.
-        bucket_name (str): Name of the GCS bucket.
-        credentials_path (Path): Path to the service account credentials (JSON) file.
+        pdf_folder (Union[str, Path]): Path to the folder containing PDFs.
     """
-    client = initialize_gcs_client(credentials_path)
+    client = initialize_gcs_client()
 
-    for pdf_file in pdf_folder.glob("*.pdf"):
+    for pdf_file in Path(pdf_folder).glob("*.pdf"):
         destination_blob_name = pdf_file.name
-        upload_to_gcs(client, bucket_name, pdf_file, destination_blob_name)
-        print(f"Uploaded {pdf_file.name} to {bucket_name}/{destination_blob_name}")
+        upload_to_gcs(client, pdf_file, destination_blob_name)
+    logger.info("All PDFs uploaded successfully!")
+
 
 if __name__ == "__main__":
-    pdf_folder = Path("./data/pdfs")
-    bucket_name = "fin-pdfs"
-    credentials_path = Path("./credentials/vai-key.json")
-    main(pdf_folder, bucket_name, credentials_path)
+    upload("./data/pdfs")
