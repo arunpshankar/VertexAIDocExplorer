@@ -18,7 +18,6 @@ def initialize_gcs_client() -> storage.Client:
         return storage.Client(credentials=credentials, project=config.PROJECT_ID)
     except Exception as e:
         logger.error(f"Failed to initialize GCS client: {e}")
-        raise
 
 
 def upload_to_gcs(client: storage.Client, source_file: Union[str, Path], destination_blob_name: str) -> None:
@@ -52,7 +51,3 @@ def upload(pdf_folder: Union[str, Path]) -> None:
         destination_blob_name = pdf_file.name
         upload_to_gcs(client, pdf_file, destination_blob_name)
     logger.info("All PDFs uploaded successfully!")
-
-
-if __name__ == "__main__":
-    upload("./data/pdfs")
