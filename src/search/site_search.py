@@ -10,9 +10,11 @@ import json
 
 
 class DiscoveryResponse:
-    def __init__(self, result: Dict[str, Any]):
+    def __init__(self, query: str, result: Dict[str, Any], rank: int):
         doc_data = result.get('document', {}).get('derivedStructData', {})
         
+        self.query = query
+        self.rank = rank
         self.title = doc_data.get('title', None)
         self.link = doc_data.get('link', None)
         snippets = doc_data.get('snippets', [])
@@ -25,6 +27,8 @@ class DiscoveryResponse:
 
     def to_dict(self) -> Dict[str, str]:
         return {
+            "query": self.query,
+            "rank": self.rank,
             "title": self.title,
             "link": self.link,
             "snippet": self.snippet,
@@ -73,30 +77,31 @@ def search_discovery_engine(query: str, page_size: int = 10, page_token: Optiona
 
 
 def fetch_all_results(query: str, page_size: int = 10) -> List[Dict[str, Any]]:
-    """
-    Fetch all search results by paginating through the Discovery Engine.
-    
-    Args:
-        query (str): The search query.
-        page_size (int, optional): The number of results to fetch per page. Defaults to 10.
-        
-    Returns:
-        list: A list of all fetched search results.
-    """
     all_results = []
     next_page_token = None
     page_count = 1
+
     while True:
         logger.info(f"Fetching page {page_count}...")
+
         response = search_discovery_engine(query, page_size=page_size, page_token=next_page_token)
-        all_results.extend(response['results'])
-        
+
+        # Ensure 'results' key is present in the response
+        results = response.get('results', [])
+        if not results:
+            logger.warning("No more results found.")
+            break
+
+        all_results.extend(results)
+
         # Check if there's a next page
         next_page_token = response.get('nextPageToken')
         if not next_page_token:
             logger.info("All pages fetched successfully.")
             break
+
         page_count += 1
+
     return all_results
 
 
