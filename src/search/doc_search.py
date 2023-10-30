@@ -1,6 +1,9 @@
 from src.config.logging import logger
 from src.config.setup import config
-from typing import Dict, Any, List
+from typing import List
+from typing import Dict
+from typing import Any
+import jsonlines
 import requests
 
 
@@ -59,39 +62,75 @@ def chat(query: str, conversation_id: str) -> Dict[str, Any]:
     return response.json()
 
 
-def display_search_results(search_results: List[Dict[str, Any]]) -> None:
+def transform_search_results(question: str, search_results: List[Dict[str, Any]], answer: str) -> List[Dict[str, Any]]:
     """
-    Display the search results.
+    Transform the search results into the desired JSON structure with segments collapsed into a list
+    and the summary text added as an "answer" field.
 
     Args:
+        question (str): The incoming user question (query).
         search_results (list): A list of search result dictionaries.
+        answer (str): The summary text to add as an "answer" field.
+
+    Returns:
+        List[Dict[str, Any]]: A list of transformed search results.
     """
-    for result in search_results:
-        logger.info('-' * 10)
+    transformed_results = []
+    for rank, result in enumerate(search_results):
         data = result['document']['derivedStructData']
         link = data['link']
         answers = data['extractive_answers']
+        
+        segments = [{"segment": answer['content'].strip(), "page": answer['pageNumber']} for answer in answers]
+        
+        transformed_result = {
+            "question": question,
+            "rank": rank + 1,
+            "document": link,
+            "segments": segments,
+            "answer": answer
+        }
+        transformed_results.append(transformed_result)
+    return transformed_results
 
-        logger.info(f'Doc ==> {link}')
-        for i, answer in enumerate(answers):
-            page_number = answer['pageNumber']
-            content = answer['content'].strip()
-            logger.info(f'Segment ==> {content}')
-            logger.info(f'Page ==> {page_number}')
-            logger.info('=' * 100)
+def save_to_jsonl(data: List[Dict[str, Any]], filename: str = "results.jsonl") -> None:
+    """
+    Save the provided data to a .jsonl file.
 
+    Args:
+        data (List[Dict[str, Any]]): The data to save.
+        filename (str, optional): The name of the file to save to. Defaults to "results.jsonl".
+    """
+    with jsonlines.open(filename, mode='w') as writer:
+        for item in data:
+            writer.write(item)
 
-if __name__ == "__main__":
-    query = "what is hsbc's lcr for the year 2021?"  # LCR ==> liquidity coverage ratio
+def get_and_save_results(query: str) -> None:
+    """
+    Process a user query to get search results, transform them into the updated JSON structure, display them, 
+    and save them to a .jsonl file.
 
+    Args:
+        query (str): The user's query.
+    """
     conversation_id = create_conversation()
     response = chat(query, conversation_id)
 
     summary_text = response['reply']['summary']['summaryText']
-    logger.info(f"Summary Text: {summary_text}")
-
-    conversation = response['conversation']
-    logger.info(f"Conversation: {conversation}")
-
+    
     search_results = response['searchResults']
-    display_search_results(search_results)
+    transformed_results = transform_search_results(query, search_results, summary_text)
+    
+    # Displaying the results
+    for result in transformed_results:
+        print(f"Rank = {result['rank']} | Document = {result['document']} | Answer = {result['answer']}")
+        for segment in result['segments']:
+            print(f"Segment = {segment['segment']} | Page = {segment['page']}")
+        print('=' * 120)
+
+    # Saving the results to a .jsonl file
+    save_to_jsonl(transformed_results)
+
+
+if __name__ == '__main__':
+    get_and_save_results(query='what is hsbc LCR 2021')
