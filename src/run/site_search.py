@@ -40,9 +40,6 @@ def site_search_paginate_test(query: str) -> None:
                 pprint(discovery_response.to_dict())
                 writer.write(discovery_response.to_dict())
                 print('-' * 120)
-
-                
-                writer.write(discovery_response.to_dict())
     except Exception as e:
         logger.error(f"Error while testing site search pagination: {e}")
 

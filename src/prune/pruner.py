@@ -35,13 +35,14 @@ class Pruner:
         Args:
             site_search_results_file_path (str): Path to the file containing site search results.
         """
-        try:
-            logger.info(f"Starting processing of file: {input_file_path}")
+        
+        logger.info(f"Starting processing of file: {input_file_path}")
+        
+        with jsonlines.open(input_file_path, mode='r') as reader, \
+                jsonlines.open(output_file_path, mode='w') as writer:
             
-            with jsonlines.open(input_file_path, mode='r') as reader, \
-                 jsonlines.open(output_file_path, mode='w') as writer:
-                
-                for entry in reader:
+            for entry in reader:
+                try:
                     link = entry.get('link')
                     logger.info(f"Processing entry with link: {link}")
                     
@@ -62,8 +63,7 @@ class Pruner:
                         # Write the updated entry to the output file
                         writer.write(entry)
                         logger.info(f"Entry with link {link} written to output file.")
-            
-            logger.info(f"Finished processing of file: {input_file_path}")
-            
-        except Exception as e:
-            logger.error(f"Error processing file {input_file_path}. Entry: {entry}. Error: {e}")
+                except Exception as e:
+                    logger.error(f"Error processing Entry: {entry}. Error: {e}")
+        
+        logger.info(f"Finished processing of file: {input_file_path}")

@@ -7,27 +7,39 @@ from typing import Any
 from tqdm import tqdm
 import requests
 import json
+import re
 
 
 class DiscoveryResponse:
     @staticmethod
-    def _replace_braces_with_square_brackets(s):
-        return s.replace('{', '[').replace('}', ']')
+    def _clean(string: str) -> str:
+        if string:
+            # Remove Commas
+            string = string.replace(',', '')
+            # Replace braces with square brackets
+            string = string.replace('{', '[').replace('}', ']')
+            # Strip leading and trailing spaces and replace multiple spaces with a single space
+            string = ' '.join(string.split())
+            return string
 
     def __init__(self, query: str, result: Dict[str, Any], rank: int):
         doc_data = result.get('document', {}).get('derivedStructData', {})
+        print(doc_data)
         
         self.query = query
         self.rank = rank
         self.title = doc_data.get('title', None)
+        self.title = DiscoveryResponse._clean(self.title)
         self.link = doc_data.get('link', None)
         snippets = doc_data.get('snippets', [])
         self.snippet = snippets[0]['snippet'] if snippets else None
-        self.snippet = DiscoveryResponse._replace_braces_with_square_brackets(self.snippet)
+        self.snippet = DiscoveryResponse._clean(self.snippet)
         
         metatags = doc_data.get('pagemap', {}).get('metatags', [{}])[0]
         self.metatags_title = metatags.get('title', None)
+        self.metatags_title = DiscoveryResponse._clean(self.metatags_title)
         self.subject = metatags.get('subject', None)
+        self.subject = DiscoveryResponse._clean(self.subject)
         self.creationdate = metatags.get('creationdate', None)
 
     def to_dict(self) -> Dict[str, str]:
