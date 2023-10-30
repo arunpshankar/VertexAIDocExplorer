@@ -4,6 +4,7 @@ from src.search.site_search import fetch_all_results
 from src.search.site_search import save_to_jsonl
 from src.config.logging import logger 
 from pprint import pprint
+import jsonlines
 
 
 def site_search_test(query: str) -> None:
@@ -31,21 +32,23 @@ def site_search_test(query: str) -> None:
 def site_search_paginate_test(query: str) -> None:
     try:
         results = fetch_all_results(query)
+        with jsonlines.open('./data/site-search-results.jsonl', 'w') as writer:
+            print(f'==================================================== SEARCH HITS ====================================================')
+            for i, result in enumerate(results):
+                rank = i+1
+                discovery_response = DiscoveryResponse(query, result, rank)
+                pprint(discovery_response.to_dict())
+                writer.write(discovery_response.to_dict())
+                print('-' * 120)
 
-        print(f'==================================================== SEARCH HITS ====================================================')
-        for result in results:
-            discovery_response = DiscoveryResponse(result)
-            pprint(discovery_response.to_dict())
-            print('-' * 120)
-
-        save_to_jsonl(results, './data/site-search-results.jsonl')
+                
+                writer.write(discovery_response.to_dict())
     except Exception as e:
         logger.error(f"Error while testing site search pagination: {e}")
 
 
 if __name__ == "__main__":
-    query = 'filetype:pdf hsbc disclosure reports'
-    # site_search_test(query)
+   
 
-    query = 'filetype:pdf brooklinebancorp disclosure reports'
+    query = 'filetype:pdf hsbc'
     site_search_paginate_test(query)

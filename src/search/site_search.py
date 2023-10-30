@@ -43,13 +43,13 @@ class DiscoveryResponse:
         }
 
 
-def search_discovery_engine(query: str, page_size: int = 10, page_token: Optional[str] = None) -> Dict[str, Any]:
+def search_discovery_engine(query: str, page_size: int = 20, page_token: Optional[str] = None) -> Dict[str, Any]:
     """
     Search the Discovery Engine with a specified query.
     
     Args:
         query (str): The search query.
-        page_size (int, optional): The number of results to fetch per page. Defaults to 10.
+        page_size (int, optional): The number of results to fetch per page. Defaults to 20.
         page_token (str, optional): The token for pagination. Defaults to None.
         
     Returns:
@@ -81,7 +81,7 @@ def search_discovery_engine(query: str, page_size: int = 10, page_token: Optiona
     return response.json()
 
 
-def fetch_all_results(query: str, page_size: int = 10) -> List[Dict[str, Any]]:
+def fetch_all_results(query: str, page_size: int = 20) -> List[Dict[str, Any]]:
     all_results = []
     next_page_token = None
     page_count = 1
