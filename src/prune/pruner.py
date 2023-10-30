@@ -28,19 +28,17 @@ class Pruner:
         cleaned_response = response.replace('```JSON\n', '').replace('```', '').strip()
         return json.loads(cleaned_response)
 
-    def prune(self, site_search_results_file_path: str) -> None:
+    def prune(self, input_file_path: str, output_file_path: str) -> None:
         """
         Read the provided file, classify its content, and write back the updated content.
 
         Args:
             site_search_results_file_path (str): Path to the file containing site search results.
         """
-        output_file_path = './data/site-search-results-pruned.jsonl'
-        
         try:
-            logger.info(f"Starting processing of file: {site_search_results_file_path}")
+            logger.info(f"Starting processing of file: {input_file_path}")
             
-            with jsonlines.open(site_search_results_file_path, mode='r') as reader, \
+            with jsonlines.open(input_file_path, mode='r') as reader, \
                  jsonlines.open(output_file_path, mode='w') as writer:
                 
                 for entry in reader:
@@ -49,6 +47,7 @@ class Pruner:
                     
                     response = self.llm.classify(entry)
                     parsed_response = self._parse_llm_response(response)
+                    logger.info(f'Response = {parsed_response}')
                     
                     logger.info(f"Classification result: {parsed_response.get('classification', 'N/A')}")
                     
@@ -64,7 +63,7 @@ class Pruner:
                         writer.write(entry)
                         logger.info(f"Entry with link {link} written to output file.")
             
-            logger.info(f"Finished processing of file: {site_search_results_file_path}")
+            logger.info(f"Finished processing of file: {input_file_path}")
             
         except Exception as e:
-            logger.error(f"Error processing file {site_search_results_file_path}. Entry: {entry}. Error: {e}")
+            logger.error(f"Error processing file {input_file_path}. Entry: {entry}. Error: {e}")

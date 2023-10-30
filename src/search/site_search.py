@@ -10,6 +10,10 @@ import json
 
 
 class DiscoveryResponse:
+    @staticmethod
+    def _replace_braces_with_square_brackets(s):
+        return s.replace('{', '[').replace('}', ']')
+
     def __init__(self, query: str, result: Dict[str, Any], rank: int):
         doc_data = result.get('document', {}).get('derivedStructData', {})
         
@@ -19,6 +23,7 @@ class DiscoveryResponse:
         self.link = doc_data.get('link', None)
         snippets = doc_data.get('snippets', [])
         self.snippet = snippets[0]['snippet'] if snippets else None
+        self.snippet = DiscoveryResponse._replace_braces_with_square_brackets(self.snippet)
         
         metatags = doc_data.get('pagemap', {}).get('metatags', [{}])[0]
         self.metatags_title = metatags.get('title', None)
