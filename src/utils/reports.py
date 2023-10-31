@@ -1,7 +1,7 @@
+from src.config.logging import logger
 import pandas as pd
 import openpyxl
 import json
-
 
 def wrap_text_fixed_size(text, line_length=50):
     """
@@ -38,24 +38,26 @@ def jsonl_to_excel(input_path, output_path):
     - input_path (str): Path to the input JSONL file.
     - output_path (str): Path to the output Excel file.
     """
-    # Load the JSONL data into a DataFrame
+    logger.info(f"Reading JSONL data from {input_path}...")
+    
     data = []
     with open(input_path, "r") as file:
         for line in file:
             data.append(json.loads(line))
     df = pd.DataFrame(data)
+    logger.info(f"Successfully loaded {len(df)} records from {input_path}.")
 
-    # Apply the text wrapping function to each cell in the DataFrame
-    df_wrapped = df.applymap(lambda x: wrap_text_fixed_size(str(x)) if pd.notnull(x) else x)
+    logger.info("Wrapping text for improved readability in Excel...")
+    df_wrapped = df.map(lambda x: wrap_text_fixed_size(str(x)) if pd.notnull(x) else x)
 
-    # Convert the 'rank' column to numeric
+    logger.info("Converting 'rank' column to numeric...")
     df_wrapped['rank'] = pd.to_numeric(df_wrapped['rank'])
 
-    # Save the modified DataFrame to Excel
+    logger.info(f"Saving data to Excel file {output_path}...")
     with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
         df_wrapped.to_excel(writer, sheet_name="Search Results", index=False)
 
-    # Adjust the Excel formatting
+    logger.info("Adjusting Excel formatting for improved readability...")
     wb = openpyxl.load_workbook(output_path)
     ws = wb.active
 
@@ -70,9 +72,5 @@ def jsonl_to_excel(input_path, output_path):
         for cell in col:
             ws.row_dimensions[cell.row].height = max_height
 
-    # Save the final Excel file
     wb.save(output_path)
-
-
-if __name__ == '__main__':
-    jsonl_to_excel('./data/evaluate/site-search-results.jsonl',  './data/evaluate/site-search-results.xlsx')
+    logger.info(f"Successfully saved formatted data to {output_path}.")
