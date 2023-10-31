@@ -15,7 +15,6 @@ Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered sea
 
 ### 🛠️ Prerequisites
 
-- Follow the [Installation steps for VertexAI Search](#).
 - Python 3.8+ (3.9+ recommended).
 - Recommended IDE: Visual Studio Code (but any IDE will work).
 
