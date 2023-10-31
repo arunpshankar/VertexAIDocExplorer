@@ -1,4 +1,4 @@
-from src.utils.downloader import upload
+from src.utils.uploader import upload
 
 
 if __name__ == "__main__":
