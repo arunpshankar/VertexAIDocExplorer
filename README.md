@@ -99,7 +99,3 @@ The `run/` directory contains scripts for testing and evaluating:
 ## Appendix
 
 - [Creating a Datastore and Ingesting Data](https://cloud.google.com/generative-ai-app-builder/docs/create-datastore-ingest)
-
----
-
-This cleaned-up version maintains the structure and content of your original README while making it more concise and organized. Adjust as needed to fit your project's requirements.
