@@ -53,7 +53,8 @@ def chat(query: str, conversation_id: str) -> Dict[str, Any]:
     }
 
     payload = {
-        "query": {"input": query}
+        "query": {"input": query}, 
+        "summarySpec": { "include_citations": "true" }
     }
 
     response = requests.post(url, headers=headers, json=payload)
@@ -79,9 +80,9 @@ def transform_search_results(question: str, search_results: List[Dict[str, Any]]
     for rank, result in enumerate(search_results):
         data = result['document']['derivedStructData']
         link = data['link']
-        answers = data['extractive_answers']
+        extractive_answers = data['extractive_answers']
         
-        segments = [{"segment": answer['content'].strip(), "page": answer['pageNumber']} for answer in answers]
+        segments = [{"segment": segment['content'].strip(), "page": segment['pageNumber']} for segment in extractive_answers]
         
         transformed_result = {
             "question": question,
