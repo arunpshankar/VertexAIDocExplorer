@@ -1,23 +1,23 @@
 # VertexAIDocExplorer 🚀
 
-Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered search pipeline designed to make document sourcing/searching smarter and more efficient. Easily source PDF documents from URLs and perform question-answering on indexed documents with Google's state-of-the-art PaLM-2 model.
+Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered search pipeline designed to make document sourcing and searching smarter and more efficient. Easily source PDF documents from URLs and perform question-answering on indexed documents using Google's state-of-the-art PaLM-2 model.
 
 ## 🌟 Features
 
 - **URL Indexing:** 🌐 Index and search for links leading to PDF documents from a list of company website URLs.
-- **LLM Pruning:** 🧠 Harness the power of Large Language Models for intelligent pruning of PDF links. Classify URLs into five categories using VertexAI search metadata and the PaLM-2 model.
-- **Async Downloader:** ⚡ Download all the PDF documents asynchronously.
-- **Cloud Storage Uploader:** ☁️ Upload documents seamlessly to Google Cloud Storage.
-- **Document Indexing:** 📖 Index the identified relevant PDFs for efficient searching.
-- **Question Answering:** ❓ Use a secondary search application to enable question-answering capabilities on the indexed documents.
+- **LLM Pruning:** 🧠 Classify URLs into five categories using VertexAI search metadata and the PaLM-2 model.
+- **Async Downloader:** ⚡ Asynchronously download PDF documents.
+- **Cloud Storage Uploader:** ☁️ Seamlessly upload documents to Google Cloud Storage.
+- **Document Indexing:** 📖 Index relevant PDFs for efficient searching.
+- **Question Answering:** ❓ Enable question-answering capabilities on the indexed documents.
 
 ## 🚀 Getting Started
 
 ### 🛠️ Prerequisites
 
-- Complete the [Installation steps for VertexAI Search](#).
-- Python 3.8+ (3.9+ recommended) installed in your local work environment.
-- We recommend Visual Studio Code for the best experience, but any IDE will work.
+- Follow the [Installation steps for VertexAI Search](#).
+- Ensure you have Python 3.8+ (3.9+ recommended) installed.
+- We recommend using Visual Studio Code for the best experience, but any IDE will work.
 
 ### 📥 Installation
 
@@ -49,48 +49,57 @@ Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered sea
 
 ### 📘 Usage
 
-Navigate to the `src/` folder to view the project's source code. Get started by exploring the `config` folder:
+Navigate to the `src/` directory to view the project's source code. Begin by exploring the `config` folder, which contains:
 
-- `config.yml`
-- `doc-search-queries.jsonl` - Queries needed for evaluating document search results.
-- `site-search-queries` - Queries for evaluating site search results (document sourcing).
-- `topics.jsonl` - Contains metadata for classifying PDF URL links identified by site search for a given query.
-- `sites.jsonl` - Collection of sites to index by VertexAI search.
+- `config.yml`: Configuration for GCP project ID, credentials, and other settings.
+- `doc-search-queries.jsonl`: Queries for evaluating document search results.
+- `site-search-queries.jsonl`: Queries for evaluating site search results.
+- `topics.jsonl`: Metadata for classifying PDF URL links.
+- `sites.jsonl`: Collection of sites to index with VertexAI search.
 
-The `run/` directory contains:
+The `run/` directory contains scripts for testing and evaluating:
 
-- `site_search.py` - Finds matching PDFs across indexed sites from `sites.jsonl`.
+- `site_search.py`: Finds PDFs across indexed sites.
    ```bash
-   $ python src/run/site_search.py
+   python src/run/site_search.py
    ```
 
-- `pruner.py` - Prunes site search results by classification into topics using text bison LLM.
+- `pruner.py`: Prunes site search results by classification.
    ```bash
-   $ python src/run/pruner.py
+   python src/run/pruner.py
    ```
 
-- `downloader.py` - Downloads PDFs from pruned URL links asynchronously to local disk.
+- `downloader.py`: Downloads PDFs from pruned URL links.
    ```bash
-   $ python src/run/downloader.py
+   python src/run/downloader.py
    ```
 
-- `uploader.py` - Uploads downloaded PDFs from local storage to Google Cloud Storage (GCS).
+- `uploader.py`: Uploads PDFs to Google Cloud Storage.
    ```bash
-   $ python src/run/uploader.py
+   python src/run/uploader.py
    ```
 
-- `doc_search.py` - Performs document search, finding relevant passages and generating answers with citations.
+- `doc_search.py`: Performs document search with relevant passages and answers.
    ```bash
-   $ python src/run/doc_search.py
+   python src/run/doc_search.py
    ```
 
-- `generate_reports.py` - Transforms evaluation output results from JSONL format to human-readable Excel sheets.
+- `evaluate.py`: Evaluates the explorer for both site and document search.
    ```bash
-   $ python src/run/generate_reports.py
+   python src/run/evaluate.py
    ```
 
-**Note:** Before performing site search, create a search app and data store using the list of sites. Similarly, before performing document search, create a search app by pointing to the GCS bucket containing the PDFs downloaded by `downloader.py`.
+- `generate_reports.py`: Converts evaluation results to Excel sheets.
+   ```bash
+   python src/run/generate_reports.py
+   ```
+
+**Note:** Before performing site search, create a search app and data store using the list of sites. Before performing document search, create a search app pointing to the GCS bucket with the PDFs from `downloader.py`.
 
 ## Appendix
 
 - [Creating a Datastore and Ingesting Data](https://cloud.google.com/generative-ai-app-builder/docs/create-datastore-ingest)
+
+---
+
+This cleaned-up version maintains the structure and content of your original README while making it more concise and organized. Adjust as needed to fit your project's requirements.
