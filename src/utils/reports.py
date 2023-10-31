@@ -1,9 +1,13 @@
-from src.config.logging import logger
-import pandas as pd
-import openpyxl
 import json
+import openpyxl
+import pandas as pd
 
-def wrap_text_fixed_size(text, line_length=50):
+from openpyxl.styles import Alignment
+from pandas import DataFrame
+from src.config.logging import logger
+
+
+def _wrap_text_fixed_size(text: str, line_length: int = 50) -> str:
     """
     Wrap text into multiple lines of fixed size.
 
@@ -30,7 +34,65 @@ def wrap_text_fixed_size(text, line_length=50):
     lines.append(' '.join(current_line))
     return '\n'.join(lines)
 
-def jsonl_to_excel(input_path, output_path):
+
+def _break_segments(segments: list) -> str:
+    """
+    Format segments into a readable string.
+
+    Parameters:
+    - segments (list): List of segment dictionaries.
+
+    Returns:
+    - str: Formatted string with segments.
+    """
+    bullets = [f"{i+1}) {segment['segment']} [Page: {segment['page']}]" for i, segment in enumerate(segments)]
+    return '\n'.join(bullets)
+
+
+def _reorder_columns(df: DataFrame) -> DataFrame:
+    """
+    Reorder DataFrame columns to have 'answer' after 'question'.
+
+    Parameters:
+    - df (DataFrame): The input DataFrame.
+
+    Returns:
+    - DataFrame: Reordered DataFrame.
+    """
+    columns_order = list(df.columns)
+    answer_idx = columns_order.index('answer')
+    question_idx = columns_order.index('question')
+    columns_order.insert(question_idx + 1, columns_order.pop(answer_idx))
+    return df[columns_order]
+
+
+def _load_jsonl(input_path: str) -> list:
+    """
+    Load data from a JSONL file.
+
+    Parameters:
+    - input_path (str): Path to the input JSONL file.
+
+    Returns:
+    - list: List of dictionaries from JSONL data.
+    """
+    with open(input_path, "r") as file:
+        return [json.loads(line) for line in file]
+
+
+def _save_to_excel(df: DataFrame, output_path: str):
+    """
+    Save a DataFrame to an Excel file.
+
+    Parameters:
+    - df (DataFrame): Data to save.
+    - output_path (str): Path to the output Excel file.
+    """
+    with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+        df.to_excel(writer, sheet_name="Search Results", index=False)
+
+
+def jsonl_to_excel_site_search(input_path: str, output_path: str):
     """
     Convert a JSONL file to a formatted Excel file.
 
@@ -39,38 +101,66 @@ def jsonl_to_excel(input_path, output_path):
     - output_path (str): Path to the output Excel file.
     """
     logger.info(f"Reading JSONL data from {input_path}...")
-    
-    data = []
-    with open(input_path, "r") as file:
-        for line in file:
-            data.append(json.loads(line))
+    data = _load_jsonl(input_path)
     df = pd.DataFrame(data)
     logger.info(f"Successfully loaded {len(df)} records from {input_path}.")
 
-    logger.info("Wrapping text for improved readability in Excel...")
-    df_wrapped = df.map(lambda x: wrap_text_fixed_size(str(x)) if pd.notnull(x) else x)
-
-    logger.info("Converting 'rank' column to numeric...")
+    df_wrapped = df.map(lambda x: _wrap_text_fixed_size(str(x)) if pd.notnull(x) else x)
     df_wrapped['rank'] = pd.to_numeric(df_wrapped['rank'])
-
+    
     logger.info(f"Saving data to Excel file {output_path}...")
-    with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
-        df_wrapped.to_excel(writer, sheet_name="Search Results", index=False)
+    _save_to_excel(df_wrapped, output_path)
 
-    logger.info("Adjusting Excel formatting for improved readability...")
+    # Adjust Excel formatting
     wb = openpyxl.load_workbook(output_path)
     ws = wb.active
-
     for col in ws.columns:
         max_height = 15
         for cell in col:
-            cell.alignment = openpyxl.styles.Alignment(wrap_text=True)
+            cell.alignment = Alignment(wrap_text=True)
             if cell.value and isinstance(cell.value, str):
                 lines = cell.value.count('\n') + 1
-                height = 15 * lines
-                max_height = max(max_height, height)
+                max_height = max(max_height, 15 * lines)
         for cell in col:
             ws.row_dimensions[cell.row].height = max_height
 
     wb.save(output_path)
     logger.info(f"Successfully saved formatted data to {output_path}.")
+
+
+def jsonl_to_excel_doc_search(input_path: str, output_path: str):
+    """
+    Convert a JSONL file to a formatted Excel file.
+
+    Parameters:
+    - input_path (str): Path to the input JSONL file.
+    - output_path (str): Path to the output Excel file.
+    """
+    logger.info(f"Reading JSONL data from {input_path}...")
+    data = _load_jsonl(input_path)
+    df = pd.DataFrame(data)
+    df = _reorder_columns(df)
+    df['segments'] = df['segments'].apply(_break_segments)
+    df['rank'] = pd.to_numeric(df['rank'])
+    
+    logger.info(f"Saving data to Excel file {output_path}...")
+    _save_to_excel(df, output_path)
+
+    # Adjust Excel formatting
+    wb = openpyxl.load_workbook(output_path)
+    ws = wb.active
+    for col in ws.columns:
+        max_length = max([len(str(cell.value)) for cell in col if cell.value])
+        col_width = max_length / 5
+        ws.column_dimensions[col[0].column_letter].width = col_width
+        for cell in col:
+            cell.alignment = Alignment(wrap_text=True)
+
+    wb.save(output_path)
+    logger.info(f"Successfully saved formatted data to {output_path}.")
+
+
+if __name__ == '__main__':
+    jsonl_to_excel_site_search("./data/evaluate/site-search-results.jsonl", "./data/evaluate/site-search-results.xlsx")
+    jsonl_to_excel_site_search("./data/evaluate/site-search-results-pruned.jsonl", "./data/evaluate/site-search-results-pruned.xlsx")
+    jsonl_to_excel_doc_search("./data/evaluate/doc-search-results.jsonl", "./data/evaluate/doc-search-results.xlsx")
