@@ -49,7 +49,3 @@ def evaluate_doc_search(inp_file_path: str, out_file_path: str) -> None:
                 })
                 print('=' * 120)
             time.sleep(5)  # to avoid API throttling
-
-
-if __name__ == '__main__':
-    evaluate_doc_search('./config/doc-search-queries.jsonl', './data/evaluate/doc-search-results.jsonl')

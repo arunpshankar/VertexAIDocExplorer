@@ -9,7 +9,7 @@ Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered sea
 - **Async Downloader:** ⚡ Download all the PDF documents asynchronously.
 - **Cloud Storage Uploader:** ☁️ Upload documents seamlessly to Google Cloud Storage.
 - **Document Indexing:** 📖 Index the identified relevant PDFs for efficient searching.
-- **Question Answering:** ❓ Use a secondary search application to enable top-notch question-answering capabilities on the indexed documents.
+- **Question Answering:** ❓ Use a secondary search application to enable question-answering capabilities on the indexed documents.
 
 ## 🚀 Getting Started
 
@@ -48,8 +48,6 @@ Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered sea
    ```
 
 ### 📘 Usage
-
-[Your step-by-step guide on how to use the application will fit perfectly here!]
 
 Navigate to the `src/` folder to view the project's source code. Get started by exploring the `config` folder:
 

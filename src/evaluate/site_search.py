@@ -44,8 +44,3 @@ def evaluate_pruner(inp_file_path: str, out_file_path: str) -> None:
     """
     pruner = Pruner()
     pruner.prune(inp_file_path, out_file_path)
-
-
-if __name__ == '__main__':
-    evaluate_site_search('./config/site-search-queries.jsonl', './data/evaluate/site-search-results.jsonl')
-    evaluate_pruner('./data/evaluate/site-search-results.jsonl', './data/evaluate/site-search-results-pruned.jsonl')
