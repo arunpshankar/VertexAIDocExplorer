@@ -1,6 +1,6 @@
 # VertexAIDocExplorer 🚀
 
-Unlock the power of VertexAI Search with VertexAIDocExplorer, a two-tiered search pipeline designed to make document searching smarter and more efficient. Easily source PDF documents from URLs and perform question-answering on indexed documents with Google's state-of-the-art PaLM-2 model.
+Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered search pipeline designed to make document sourcing/searching smarter and more efficient. Easily source PDF documents from URLs and perform question-answering on indexed documents with Google's state-of-the-art PaLM-2 model.
 
 ## 🌟 Features
 
