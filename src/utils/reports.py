@@ -1,10 +1,9 @@
-import json
-import openpyxl
-import pandas as pd
-
+from src.config.logging import logger
 from openpyxl.styles import Alignment
 from pandas import DataFrame
-from src.config.logging import logger
+import pandas as pd
+import openpyxl
+import json
 
 
 def _wrap_text_fixed_size(text: str, line_length: int = 50) -> str:
