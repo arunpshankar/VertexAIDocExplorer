@@ -49,52 +49,52 @@ export PYTHONPATH=$PYTHONPATH:.
 
 ### 📘 Usage
 
-Navigate to `src/` to view the source code. Start with the `config` folder:
+Navigate to the `src/` directory to explore the source code. Begin with the `config` folder, which includes:
 
-- `config.yml`: Configurations for GCP project ID, credentials, and more.
+- `config.yml`: Configuration settings (e.g., GCP project ID, credentials).
 - `doc-search-queries.jsonl`: Queries to evaluate document search results.
 - `site-search-queries.jsonl`: Queries to evaluate site search results.
 - `topics.jsonl`: Metadata for classifying PDF URL links.
-- `sites.jsonl`: Collection of sites to index with VertexAI search.
+- `sites.jsonl`: List of sites to index with VertexAI search.
 
-The `run/` directory contains scripts for testing and evaluation:
+The `run/` directory houses scripts for testing and evaluation:
 
-- `site_search.py`: Find PDFs across indexed sites.
+- `site_search.py`: Finds PDFs across indexed sites.
 ```bash
 python src/run/site_search.py
 ```
 
-- `pruner.py`: Prune site search results by classification.
+- `pruner.py`: Prunes site search results by classification.
 ```bash
 python src/run/pruner.py
 ```
 
-- `downloader.py`: Download PDFs from pruned URL links.
+- `downloader.py`: Downloads PDFs from pruned URL links.
 ```bash
 python src/run/downloader.py
 ```
 
-- `uploader.py`: Upload PDFs to Google Cloud Storage.
+- `uploader.py`: Uploads PDFs to Google Cloud Storage.
 ```bash
 python src/run/uploader.py
 ```
 
-- `doc_search.py`: Search documents with relevant passages and answers.
+- `doc_search.py`: Searches documents, returning relevant passages and answers.
 ```bash
 python src/run/doc_search.py
 ```
 
-- `evaluate.py`: Evaluate the explorer for both site and document searches.
+- `evaluate.py`: Evaluates the explorer for site and document searches.
 ```bash
 python src/run/evaluate.py
 ```
 
-- `generate_reports.py`: Convert evaluation results to Excel sheets.
+- `generate_reports.py`: Converts evaluation results to Excel sheets.
 ```bash
 python src/run/generate_reports.py
 ```
 
-> **Note:** Before site searching, create a search app and data store using the list of sites. Before document searching, create a search app pointing to the GCS bucket with the PDFs from `downloader.py`.
+🔍 **Note:** Prior to site searching, create a search app and data store using the site list. Before document searching, set up a search app pointing to the GCS bucket containing the PDFs from `downloader.py`.
 
 ## Sample Outputs
 
@@ -102,28 +102,51 @@ python src/run/generate_reports.py
 
 ```json
 {
-   "question": "what is hsbc LCR 2021",
-   "rank": 7,
-   "document": "gs://financial-pdf-documents/HSBC Holdings plc  Annual Report and Accounts 2020.pdf",
-   "segments": [
-      {
-         "segment": "• HSBC Bank Middle East – UAE branch remained in a strong liquidity position, with a liquidity ratio of 280%. • HSBC Canada increased its LCR to 165%, mainly driven by increased customer deposits and covered bond issuance.",
-         "page": "179"
-      }
-   ],
-   "answer": "The liquidity coverage ratio (LCR) is a measure of a bank's ability to meet its liquidity needs for a 30-day period under stressed conditions [1]. The LCR is calculated by dividing a bank's high-quality liquid assets by its net cash outflows over a 30-day period [1]. The LCR is based on the average values of the preceding 12 months [4]. In 2021, HSBC's LCR was 150% [5]."
+   "query": "filetype:pdf hsbc",
+   "rank": 3,
+   "title": "230710-hsbc-human-rights-statement.pdf",
+   "link": "https://www.hsbc.com/-/files/hsbc/who-we-are/pdf/230710-hsbc-human-rights-statement.pdf",
+   "snippet": "Jul 10 2023 ... HSBC is one of the world's largest banking and financial services organisations. Our global businesses serve more.",
+   "metatags_title": "HSBC Human Rights Statement",
+   "subject": "Annual Results 2021",
+   "creationdate": "D:20230712180026+08'00'"
 }
 ```
 
 **Fields:**
 
-- **question:** The query posed by the user.
-- **rank:** The rank of the document in search results.
-- **document:** The GCS path to the relevant PDF document.
-- **segments:** List of relevant segments from the document.
-  - **segment:** A text snippet from the document that's relevant to the query.
-  - **page:** The page number where the segment can be found.
-- **answer:** A concise answer to the query.
+- **query:** The user's search query.
+- **rank:** The document's ranking in search results.
+- **title:** Document title.
+- **link:** URL to the document.
+- **snippet:** A brief excerpt from the document.
+- **metatags_title:** The title from the document's metatags.
+- **subject:** The document's subject.
+- **creationdate:** The document's creation date.
+
+### Pruned Site Search Result:
+
+```json
+{
+   "query": "Annual Registration Document of Standard Chartered for 2022 filetype: pdf",
+   "rank": 10,
+   "title": "Notice of 2019 Annual General Meeting - Announcement made to ...",
+   "snippet": "Mar 6 2019 ... The Board of Directors of HSBC Holdings plc as at the date of this document comprises: Mark Tucker* John. Flint Kathleen Casey† Laura Cha† ...",
+   "metatags_title": "Notice of 2019 Annual General Meeting - Announcement made to the HK stock exchange - English",
+   "subject": "Stock exchange announcement",
+   "creationdate": "D:20190225205638Z",
+   "classification": "Annual Report",
+   "rationale": "The document, titled 'Notice of 2019 Annual General Meeting,' contains information about the Board of Directors, suggesting it's an Annual Registration Document.",
+   "link": "https://www.hsbc.com/-/files/hsbc/investors/results-and-announcements/stock-exchange-announcements/2019/march/sea-190306-e-2019-agm-circular.pdf"
+}
+```
+
+**Fields:** 
+
+Similar to the Site Search Result fields, with the addition of:
+
+- **classification:** The category of the document.
+- **rationale:** Reasoning behind the document's classification.
 
 ### Document Search Result:
 
@@ -142,7 +165,15 @@ python src/run/generate_reports.py
 }
 ```
 
-**Fields:** Similar to the Site Search Result fields.
+**Fields:**
+
+- **question:** The query posed by the user.
+- **rank:** The rank of the document in search results.
+- **document:** The GCS path to the relevant PDF document.
+- **segments:** List of relevant segments from the document.
+  - **segment:** A text snippet from the document that's relevant to the query.
+  - **page:** The page number where the segment can be found.
+- **answer:** A concise answer to the query.
 
 ## Appendix
 
