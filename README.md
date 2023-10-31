@@ -1,41 +1,58 @@
-# VertexAIDocExplorer
+# VertexAIDocExplorer 🚀
 
-A two-tiered search pipeline using VertexAI Search: First, to locate PDF documents on provided URLs and secondly, to perform question-answering on indexed documents using a Large Language Model (`Google's SoTA PaLM-2 model`).
+Unlock the power of VertexAI Search with VertexAIDocExplorer, a two-tiered search pipeline designed to make document searching smarter and more efficient. Easily source PDF documents from URLs and perform question-answering on indexed documents with Google's state-of-the-art PaLM-2 model.
 
-## Features
+## 🌟 Features
 
-1. **URL Indexing:** Given a list of company website URLs, the application will index and search for links to PDF documents.
-2. **LLM Pruning:** Utilizes a Large Language Model (LLM) to smartly prune the list of PDF links.
-3. **Document Indexing:** Once the relevant PDFs are identified, they are indexed to facilitate efficient searching.
-4. **Question Answering:** With the indexed documents, a secondary search application allows for question-answering capabilities on top of the document indices.
+1. **URL Indexing:** 🌐 Given a list of company website URLs, effortlessly index and search for links leading to PDF documents.
+2. **LLM Pruning:** 🧠 Harness the power of Large Language Models (LLM) for intelligent pruning of PDF links. Combine metadata from VertexAI search with the PaLM-2 model to classify URLs into five categories (modifiable as per your requirements).
+3. **Async Downloader:** ⚡ A lightning-fast downloader to fetch all the PDF documents for you.
+4. **Cloud Storage Uploader:** ☁️ Seamlessly upload documents to Google Cloud Storage.
+5. **Document Indexing:** 📖 Once we've identified the relevant PDFs, they're indexed for efficient searching.
+6. **Question Answering:** ❓ Dive deep into the indexed documents with a secondary search application, enabling top-notch question-answering capabilities.
 
-## Getting Started
+## 🚀 Getting Started
 
-### Prerequisites
+### 🛠️ Prerequisites
 
-- [Installation steps for VertexAI Search]
-- [Other dependencies...]
+- Complete the [Installation steps for VertexAI Search](#)
+- Ensure you have Python 3.8+ installed (3.9+ recommended). This should be available in your local work environment.
+- Any IDE will work, but we recommend Visual Studio Code for the best experience.
 
-### Installation
+### 📥 Installation
 
-1. Clone this repository:
+1. **Clone** the repository:
    ```bash
    git clone https://github.com/[YourGitHubUsername]/VertexDocSearcher.git
    ```
 
-2. Navigate to the project directory:
+2. **Navigate** to the project directory:
    ```bash
    cd VertexAIDocExplorer
    ```
 
-3. Install the required dependencies:
+3. **Set Up Virtual Environment** (optional but recommended):
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
+
+4. **Install Dependencies**:
    ```bash
    [installation steps...]
    ```
 
-### Usage
+5. **Update your PYTHONPATH**:
+   ```bash
+   export PYTHONPATH=$PYTHONPATH:.
+   ```
 
-[Provide a step-by-step guide on how to use the application.]
+### 📘 Usage
 
+[Your step-by-step guide on how to use the application will fit perfectly here!]
 
-export PYTHONPATH=$PYTHONPATH:.
+---
+
+All the essential scripts for testing VertexAI Search across both use cases are included. Dive in and explore the future of document searching!
+
+📝 Note: Replace placeholders such as `[installation steps...]` with the actual information or links as needed.
