@@ -106,6 +106,7 @@ def jsonl_to_excel_site_search(input_path: str, output_path: str):
 
     df_wrapped = df.map(lambda x: _wrap_text_fixed_size(str(x)) if pd.notnull(x) else x)
     df_wrapped['rank'] = pd.to_numeric(df_wrapped['rank'])
+    df_wrapped['link'] = df_wrapped['link'].str.replace('\n', '')
     
     logger.info(f"Saving data to Excel file {output_path}...")
     _save_to_excel(df_wrapped, output_path)
