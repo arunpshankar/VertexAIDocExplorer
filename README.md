@@ -3,7 +3,7 @@
 Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered search pipeline designed to source and search documents intelligently. Source PDF documents from URLs and perform question-answering on indexed documents using Google's state-of-the-art PaLM-2 model.
 
 <div align="center">
-<img src="./img/architecture.png" alt="Architecture (100-Foot View)" width="400" height="900"/>
+<img src="./img/architecture.png" alt="Architecture (100-Foot View)" width="800" height="500"/>
 </div>
 
 
