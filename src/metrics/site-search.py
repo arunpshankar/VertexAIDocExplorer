@@ -95,7 +95,7 @@ def compute_all_metrics(file_path: str) -> pd.DataFrame:
     logger.info("Computation complete.")
     return result_df
 
-def compute(input_path: str, output_path: str):
+def evaluate_by_metrics(input_path: str, output_path: str):
     """Main function to compute metrics and save to CSV."""
     result_df = compute_all_metrics(input_path)
     logger.info("Saving results to %s", output_path)
@@ -109,4 +109,4 @@ if __name__ == "__main__":
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
-    compute(input_file_path, output_file_path)
+    evaluate_by_metrics(input_file_path, output_file_path)

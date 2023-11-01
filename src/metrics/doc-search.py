@@ -77,7 +77,7 @@ def safe_convert_to_int(x: List[str]) -> List[int]:
     return [int(label) for label in x] if isinstance(x, list) else []
 
 
-def generate_metrics_from_excel(input_filepath: str, output_filepath: str) -> None:
+def evaluate_by_metrics(input_filepath: str, output_filepath: str) -> None:
     """Generate metrics from an input Excel file and save the results to an output CSV file."""
     data = load_data(input_filepath)
     # Filter out rows with "not enough information" in the 'answer' column
@@ -101,4 +101,4 @@ def generate_metrics_from_excel(input_filepath: str, output_filepath: str) -> No
 
 
 if __name__ == '__main__':
-    generate_metrics_from_excel("data/evaluate/doc-search-results.xlsx", "data/metrics/doc-search.csv")
+    evaluate_by_metrics("data/evaluate/doc-search-results.xlsx", "data/metrics/doc-search.csv")
