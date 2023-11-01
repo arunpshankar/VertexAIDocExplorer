@@ -3,8 +3,9 @@
 Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered search pipeline designed to source and search documents intelligently. Source PDF documents from URLs and perform question-answering on indexed documents using Google's state-of-the-art PaLM-2 model.
 
 <div align="center">
-<img src="./img/workflow.png" alt="Flowchart" width="400" height="900"/>
+<img src="./img/architecture.png" alt="Architecture (100-Foot View)" width="400" height="900"/>
 </div>
+
 
 ## 🌟 Features
 
@@ -14,6 +15,10 @@ Unlock the power of VertexAI Search with `VertexAIDocExplorer`, a two-tiered sea
 - ☁️ **Cloud Storage Uploader:** Upload documents to Google Cloud Storage seamlessly.
 - 📖 **Document Indexing:** Index relevant PDFs for efficient searching.
 - ❓ **Question Answering:** Enable question-answering capabilities on the indexed documents.
+
+<div align="center">
+<img src="./img/workflow.png" alt="Flowchart" width="400" height="900"/>
+</div>
 
 ## 🚀 Getting Started
 
