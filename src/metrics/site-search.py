@@ -104,7 +104,7 @@ def evaluate_by_metrics(input_path: str, output_path: str):
 
 if __name__ == "__main__":
     input_file_path = "./data/evaluate/site-search-results.xlsx"
-    output_file_path = "./data/metrics/site-search.csv"
+    output_file_path = "./data/metrics/site-search-evaluation-by-metrics.csv"
     output_directory = os.path.dirname(output_file_path)
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)

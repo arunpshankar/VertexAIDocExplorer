@@ -101,4 +101,4 @@ def evaluate_by_metrics(input_filepath: str, output_filepath: str) -> None:
 
 
 if __name__ == '__main__':
-    evaluate_by_metrics("data/evaluate/doc-search-results.xlsx", "data/metrics/doc-search.csv")
+    evaluate_by_metrics("data/evaluate/doc-search-results.xlsx", "data/metrics/doc-search-evaluation-by-metrics.csv")
