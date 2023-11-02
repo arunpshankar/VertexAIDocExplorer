@@ -244,7 +244,17 @@ The final evaluation metrics will be stored in:
 - `data/metrics/site-search-evaluation-by-metrics.csv`
 - `doc-search-evaluation-by-metrics.csv`
 
-These files will help you understand the quality of the search results across various queries.
+**Note:** The following table summarizes the evaluation metrics for site-search results. The metrics include Precision (P), Precision at K (P@K), Mean Reciprocal Rank (MRR), and Normalized Discounted Cumulative Gain (NDCG). These values are computed to assess the relevance of search results to the user's query.
+
+| Query | P | P@1 | P@3 | P@5 | MRR | NDCG | NDCG@3 | NDCG@5 |
+|-------|---|-----|-----|-----|-----|------|--------|--------|
+| Annual Information Form of HSBC for 2021 filetype: pdf | 1.0 | 1.0 | 1.0 | 1.0 | 1.0 | 1.0 | 1.0 | 1.0 |
+| Annual Registration Document of Standard Chartered for 2022 filetype: pdf | 0.5 | 1.0 | 1.0 | 1.0 | 1.0 | 0.731 | 1.0 | 1.0 |
+| Annual Report of Commerzbank for 2021 filetype: pdf | 0.667 | 1.0 | 0.667 | 0.667 | 1.0 | 0.692 | 0.692 | 0.692 |
+| ... | ... | ... | ... | ... | ... | ... | ... | ... |
+| Universal Registration Document of Standard Chartered for 2021 filetype: pdf | 0.75 | 1.0 | 0.667 | 0.75 | 1.0 | 0.805 | 0.769 | 0.805 |
+| Universal Registration Document of Standard Chartered for 2022 filetype: pdf | 0.8 | 1.0 | 1.0 | 0.8 | 1.0 | 0.862 | 1.0 | 0.862 |
+| Average | 0.729 | 0.917 | 0.889 | 0.818 | 0.958 | 0.796 | 0.891 | 0.843 |
 
 ## Appendix
 
