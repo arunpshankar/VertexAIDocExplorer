@@ -183,6 +183,69 @@ Similar to the Site Search Result fields, with the addition of:
   - **page:** The page number where the segment can be found.
 - **answer:** A concise answer to the query.
 
+---
+
+## Getting Started with Evaluation
+
+In the `config` directory of the project repository, you will find the following JSONL files containing query examples for evaluation:
+
+- `doc-search-queries.jsonl`: Contains queries related to document search.
+- `site-search-queries.jsonl`: Contains queries related to site search.
+
+Feel free to augment these files with additional queries as necessary.
+
+## Running the Evaluation
+
+To initiate the evaluation process:
+
+1. Finalize the JSONL files with your queries.
+2. Navigate to `src/run/evaluate.py` to execute the search against both site and document datasets.
+3. Results will be saved in `data/evaluate/site-search-results.jsonl` and `doc-search-results.jsonl`.
+
+## Generating Reports
+
+After running the evaluation:
+
+1. Run `src/run/generate-reports.py` to convert the JSONL results into Excel format.
+2. The spreadsheets will be saved alongside the JSONL files with a `.xlsx` extension.
+
+## Labeling the Results
+
+With the Excel files ready:
+
+1. Add a new column titled 'HUMAN LABEL' to both spreadsheets.
+2. Begin labeling the site search and doc search results for relevance.
+
+## Evaluation Criteria
+
+For site-search results:
+
+- Check if the URLs match the specified company and topic for a given query.
+
+For doc-search results:
+
+- Evaluate if the search results match relevant document segments and provide appropriate abstractive answers.
+
+## Metrics for Evaluation
+
+We employ several metrics to quantify the evaluation:
+
+- **Precision (p)**
+- **Precision at k (p@k)** (with k being 1, 3, and 5)
+- **Mean Reciprocal Rank (mrr)**
+- **Normalized Discounted Cumulative Gain (ndcg)** (including ndcg@3 and ndcg@5)
+
+To calculate these metrics, utilize `src/metrics/site-search.py` and `src/metrics/doc-search.py`. These scripts will compute the scores based on the labeled Excel files.
+
+## Results
+
+The final evaluation metrics will be stored in:
+
+- `data/metrics/site-search-evaluation-by-metrics.csv`
+- `doc-search-evaluation-by-metrics.csv`
+
+These files will help you understand the quality of the search results across various queries.
+
 ## Appendix
 
 - [Creating a Datastore and Ingesting Data](https://cloud.google.com/generative-ai-app-builder/docs/create-datastore-ingest)
