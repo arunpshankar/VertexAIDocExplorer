@@ -244,7 +244,7 @@ The final evaluation metrics will be stored in:
 - `data/metrics/site-search-evaluation-by-metrics.csv`
 - `doc-search-evaluation-by-metrics.csv`
 
-**Note:** The following table summarizes the evaluation metrics for site-search results. The metrics include Precision (P), Precision at K (P@K), Mean Reciprocal Rank (MRR), and Normalized Discounted Cumulative Gain (NDCG). These values are computed to assess the relevance of search results to the user's query.
+**Note:** The following tables summarizes the evaluation metrics for site-search and doc-search results respectively. The metrics include Precision (P), Precision at K (P@K), Mean Reciprocal Rank (MRR), and Normalized Discounted Cumulative Gain (NDCG). These values are computed to assess the relevance of search results to the user's query.
 
 | Query | P | P@1 | P@3 | P@5 | MRR | NDCG | NDCG@3 | NDCG@5 |
 |-------|---|-----|-----|-----|-----|------|--------|--------|
@@ -255,6 +255,16 @@ The final evaluation metrics will be stored in:
 | Universal Registration Document of Standard Chartered for 2021 filetype: pdf | 0.75 | 1.0 | 0.667 | 0.75 | 1.0 | 0.805 | 0.769 | 0.805 |
 | Universal Registration Document of Standard Chartered for 2022 filetype: pdf | 0.8 | 1.0 | 1.0 | 0.8 | 1.0 | 0.862 | 1.0 | 0.862 |
 | Average | 0.729 | 0.917 | 0.889 | 0.818 | 0.958 | 0.796 | 0.891 | 0.843 |
+
+
+| Question | Precision | P@1 | P@3 | P@5 | MRR | nDCG | nDCG@3 | nDCG@5 |
+|----------|-----------|-----|-----|-----|-----|------|--------|--------|
+| Does the company have employee representatives or directors representing employees on the supervisory board? | 0.667 | 1.0 | 0.667 | 0.667 | 1.0 | 1.0 | 1.0 | 1.0 |
+| What was the rate of recordable work-related injuries in the company? | 0.333 | 1.0 | 0.333 | 0.333 | 1.0 | 1.0 | 1.0 | 1.0 |
+| ... | ... | ... | ... | ... | ... | ... | ... | ... |
+| "What were the total fees the company payed its core external auditor in exchange for performing audit, audit-related, and non-audit services?" | 0.333 | 1.0 | 0.333 | 0.333 | 1.0 | 1.0 | 1.0 | 1.0 |
+| Average | 0.621 | 0.938 | 0.625 | 0.638 | 0.938 | 0.910 | 0.851 | 0.875 |
+
 
 ## Appendix
 
