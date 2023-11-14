@@ -91,25 +91,30 @@ def _save_to_excel(df: DataFrame, output_path: str):
         df.to_excel(writer, sheet_name="Search Results", index=False)
 
 
-def jsonl_to_excel_site_search(input_path: str, output_path: str):
+def jsonl_to_excel_site_search(input_path: str, output_path: str, max_rank: int):
     """
-    Convert a JSONL file to a formatted Excel file.
+    Convert a JSONL file to a formatted Excel file, including only rows with rank less than or equal to max_rank.
 
     Parameters:
     - input_path (str): Path to the input JSONL file.
     - output_path (str): Path to the output Excel file.
+    - max_rank (int): Maximum rank to include in the output.
     """
     logger.info(f"Reading JSONL data from {input_path}...")
     data = _load_jsonl(input_path)
     df = pd.DataFrame(data)
-    logger.info(f"Successfully loaded {len(df)} records from {input_path}.")
 
-    df_wrapped = df.map(lambda x: _wrap_text_fixed_size(str(x)) if pd.notnull(x) else x)
-    df_wrapped['rank'] = pd.to_numeric(df_wrapped['rank'])
-    df_wrapped['link'] = df_wrapped['link'].str.replace('\n', '')
+    # Filter the DataFrame based on the rank
+    df_filtered = df[df['rank'] <= max_rank]
+
+    logger.info(f"Successfully loaded {len(df_filtered)} records from {input_path}.")
+
+    df_filtered = df_filtered.applymap(lambda x: _wrap_text_fixed_size(str(x)) if pd.notnull(x) else x)
+    df_filtered['rank'] = pd.to_numeric(df_filtered['rank'])
+    df_filtered['link'] = df_filtered['link'].str.replace('\n', '')
     
-    logger.info(f"Saving data to Excel file {output_path}...")
-    _save_to_excel(df_wrapped, output_path)
+    logger.info(f"Saving data to Excel file {output_path} with max rank {max_rank}...")
+    _save_to_excel(df_filtered, output_path)
 
     # Adjust Excel formatting
     wb = openpyxl.load_workbook(output_path)
@@ -125,7 +130,7 @@ def jsonl_to_excel_site_search(input_path: str, output_path: str):
             ws.row_dimensions[cell.row].height = max_height
 
     wb.save(output_path)
-    logger.info(f"Successfully saved formatted data to {output_path}.")
+    logger.info(f"Successfully saved formatted data with max rank {max_rank} to {output_path}.")
 
 
 def jsonl_to_excel_doc_search(input_path: str, output_path: str):
