@@ -24,7 +24,6 @@ class DiscoveryResponse:
 
     def __init__(self, query: str, result: Dict[str, Any], rank: int):
         doc_data = result.get('document', {}).get('derivedStructData', {})
-        print(doc_data)
         
         self.query = query
         self.rank = rank

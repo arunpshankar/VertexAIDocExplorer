@@ -47,5 +47,5 @@ def site_search_paginate_test(query: str) -> None:
 if __name__ == "__main__":
    
 
-    query = 'filetype:pdf hsbc'
+    query = 'site:hsbc.com/-/files/ filetype:pdf'
     site_search_paginate_test(query)
