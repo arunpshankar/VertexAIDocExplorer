@@ -149,35 +149,39 @@ KV =>"""
         :param query_components: Parsed query components.
         :return: Score for the search result.
         """
-        prompt = f"""Given query components (QUERY_COMPONENTS) and metadata components (METADATA_COMPONENTS), compute the alignment scores of each query component against its corresponding metadata component from the search result.
+        prompt = f"""Given query components (QUERY_COMPONENTS) and metadata components (METADATA_COMPONENTS), your first step is to calculate the alignment scores of each query component against its corresponding metadata component from the search result.
 
 QUERY_COMPONENTS => {query_components}
-METADATA COMPONENTS => {metadata_components}
+METADATA_COMPONENTS => {metadata_components}
 
-Assign a score to each query component based on these confidence levels:
+Next, assign a score to each query component based on the following confidence levels:
 0 = not confident
 0.5 = partially confident
 1 = confident
 
-Subsequently, multiply each score by its corresponding weight:
-company name = 4
-report type = 3
+Then, multiply each score by its corresponding weight:
+company name = 8
+report type = 4
 year = 2
 country = 1
 
-IMPORTANT: REMEMBER TO MULTIPLY BY THE WEIGHTS
+IMPORTANT: DON'T FORGET TO MULTIPLY BY THE WEIGHTS
+
+If the company name is an exact match, double the score. If a query component matches multiple times with the metadata components, add 1 for each additional match.
+
+IMPORTANT: An "exact match" refers to a situation where a specific sequence of words is found in a text exactly as it appears, without any variation. If the company name is "Columbia Financial Inc." - the snippet should contain 3 matching words in the right order. Casing and minor punctuations can be ignored.
 
 SCORES =>
 
-Next, calculate the total score by summing all the weighted scores.
+Proceed to calculate the total score by summing all the weighted scores.
 
 TOTAL SCORE =>
 
-Then, explain the reasoning behind each assigned confidence level for every calculated score.
+Afterward, explain the reasoning behind each assigned confidence level and the calculated score for each component.
 
 RATIONALE =>
 
-Lastly, compile a valid JSON with two keys: total_score and rationale. IMPORTANT: Remember to escape double quotes."""
+Finally, create a valid JSON with two keys: total_score and rationale. Remember to escape double quotes when necessary."""
         prediction = self.llm.model.predict(prompt)
         return prediction
     
