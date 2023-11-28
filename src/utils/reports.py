@@ -105,12 +105,14 @@ def jsonl_to_excel_site_search(input_path: str, output_path: str, max_rank: int)
     df = pd.DataFrame(data)
 
     # Filter the DataFrame based on the rank
-    df_filtered = df[df['rank'] <= max_rank]
+    df_filtered = df[df['new_rank'] <= max_rank]
 
     logger.info(f"Successfully loaded {len(df_filtered)} records from {input_path}.")
 
     df_filtered = df_filtered.applymap(lambda x: _wrap_text_fixed_size(str(x)) if pd.notnull(x) else x)
     df_filtered['rank'] = pd.to_numeric(df_filtered['rank'])
+    df_filtered['new_rank'] = pd.to_numeric(df_filtered['new_rank'])
+    df_filtered['score'] = pd.to_numeric(df_filtered['score'])
     df_filtered['link'] = df_filtered['link'].str.replace('\n', '')
     
     logger.info(f"Saving data to Excel file {output_path} with max rank {max_rank}...")
