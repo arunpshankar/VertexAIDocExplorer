@@ -5,7 +5,6 @@ from functools import lru_cache
 from src.prune.llm import LLM
 import jsonlines
 import json
-import re 
 
 
 class SearchResult:
@@ -77,7 +76,6 @@ class Reranker:
         :return: Dictionary of parsed query components.
         """
         try:
-            components = []
             prompt = f"""Given a query (QUERY), break it into key-value pairs (KV), similar to the examples shown below:
 
 QUERY => Brookline Bancorp Inc USA 2022 10-K/A site:cloudfront.net/ filetype:pdf
@@ -107,7 +105,7 @@ KV =>"""
         return self.parse_query_cached(query)
     
 
-    def _extract_score_and_rationale(self, input_string):
+    def _extract_score_and_rationale(self, input_string) -> dict:
         """
         Extracts the score and rationale from a given string containing JSON data.
 
@@ -133,31 +131,78 @@ KV =>"""
 
         # Extracting the desired data
         score = json_data.get('total_score', 'Not found')
-        rationale = json_data.get('rationale', 'Not found')
 
         return {
             "score": score,
-            "rationale": rationale
+            "rationale": input_string
         }
+    
 
-
-    def _score_result(self, query_components: dict, metadata_components) -> float:
+    def _score_result_for_penalty(self, query_components: dict, metadata_components) -> str:
         """
         Scores a search result based on its alignment with the query components.
 
         :param result: A single search result.
         :param query_components: Parsed query components.
-        :return: Score for the search result.
+        :param metadata_components: Parsed metadata components. 
+        :return: Score for the search result as a JSON string.
         """
-        prompt = f"""Given query components (QUERY_COMPONENTS) and metadata components (METADATA_COMPONENTS), your first step is to calculate the alignment scores of each query component against its corresponding metadata component from the search result.
+        prompt = f"""First, extract all the company names from the provided metadata components. List them numerically under the heading 'EXTRACTED COMPANY NAMES'.
+
+METADATA COMPONENTS: => {metadata_components}
+
+EXTRACTED COMPANY NAMES =>
+
+Next, remove any company names from the extracted list that appear in the QUERY COMPONENTS provided below.
+The resulting list, labeled 'REMAINING COMPANY NAMES', should only contain items that are not removed.
+
+QUERY COMPONENTS => {query_components}
+
+REMAINING COMPANY NAMES =>
+
+Start with an initial penalty score of 0 for both company names.
+
+INITIAL_PENALTY_SCORE_COMPANY_NAMES = 0
+
+Subtract 4 from the initial penalty score for each remaining company name.
+VERY IMPORTANT: DO NOT count None, nothing, or an empty list as 1 when computing scores. Validate this by counting the number of REMAINING COMPANY NAMES. If it is 0, DO NOT subtract.
+
+IMPORTANT: The FINAL PENALTY SCORE should always be zero or negative.
+
+.
+
+Provide a rationale for each score and explain how the FINAL PENALTY SCORE was computed.
+
+RATIONALE =>
+
+FINAL PENALTY SCORE =>
+
+IMPORTANT: The FINAL PENALTY SCORE should match what is explained in the rationale.
+
+Lastly, create a JSON string with a single key, "total_score". The value should be the final penalty score calculated in the previous step.""" 
+        prediction = self.llm.model.predict(prompt)
+        return prediction
+
+    def _score_result(self, query_components: dict, metadata_components) -> str:
+        """
+        Scores a search result based on its alignment with the query components.
+
+        :param result: A single search result.
+        :param query_components: Parsed query components.
+        :param metadata_components: Parsed metadata components. 
+        :return: Score for the search result as a JSON string.
+        """
+        prompt = f"""First, calculate the matching scores for each query component against each metadata component using the given query components (QUERY_COMPONENTS) and metadata components (METADATA_COMPONENTS).
+
+For example, search `company_name` against `snippet`, `title`, `subject`, `link`, and `metatags_title` in that order. Repeat this process for `report_type`, `country`, and `year`. Additionally, perform an extra search for `year` against `creation_date`.
 
 QUERY_COMPONENTS => {query_components}
 METADATA_COMPONENTS => {metadata_components}
 
-Next, assign a score to each query component based on the following confidence levels:
+Next, assign a score to each query component based on confidence levels:
 0 = not confident
-0.5 = partially confident
-1 = confident
+1 = partially confident
+2 = confident
 
 Then, multiply each score by its corresponding weight:
 company name = 8
@@ -165,23 +210,23 @@ report type = 4
 year = 2
 country = 1
 
-IMPORTANT: DON'T FORGET TO MULTIPLY BY THE WEIGHTS
+Remember to apply the weights.
 
-If the company name is an exact match, double the score. If a query component matches multiple times with the metadata components, add 1 for each additional match.
+A query component like `company_name` might match several metadata components such as `title`, `snippet`, and `link`. In these cases, add the scores for each match.
 
-IMPORTANT: An "exact match" refers to a situation where a specific sequence of words is found in a text exactly as it appears, without any variation. If the company name is "Columbia Financial Inc." - the snippet should contain 3 matching words in the right order. Casing and minor punctuations can be ignored.
+IMPORTANT: If there is an exact match with the company name, double the score. An "exact match" is when a specific sequence of words is found in the text exactly as it appears, with no variation. For example, if the company name is "Columbia Financial Inc.", the snippet should contain these three words in the correct order. Casing and minor punctuation should be ignored.
 
 SCORES =>
 
-Proceed to calculate the total score by summing all the weighted scores.
+Next, calculate the total score by adding all the weighted scores.
 
 TOTAL SCORE =>
 
-Afterward, explain the reasoning behind each assigned confidence level and the calculated score for each component.
+Then, provide a rationale for each assigned confidence level and the calculated score for each component. Specify where the match was found, such as the company name in the snippet, or the report type in the subject.
 
 RATIONALE =>
 
-Finally, create a valid JSON with two keys: total_score and rationale. Remember to escape double quotes when necessary."""
+Finally, generate a valid JSON output with the ONLY ONE key as `total_score`, and the value being the total score computed above."""
         prediction = self.llm.model.predict(prompt)
         return prediction
     
@@ -214,7 +259,7 @@ Finally, create a valid JSON with two keys: total_score and rationale. Remember 
             rank = row.rank
             if rank <= k:
                 query = row.query
-                logger.info(f'Query: {query}')
+                logger.info(f'Query: {query} | Rank: {rank}')
                 query_components = self._parse_query(query)
                 snippet = row.snippet
                 title = row.title
@@ -226,14 +271,24 @@ Finally, create a valid JSON with two keys: total_score and rationale. Remember 
                 prediction = self._score_result(query_components, result)
                 score_rationale = self._extract_score_and_rationale(prediction)
                 score = score_rationale.get('score')
-                rationale = score_rationale.get('rationale')
+                rationale = score_rationale.get('rationale')        
+                penalty_prediction = self._score_result_for_penalty(query_components, result)
+                score_rationale = self._extract_score_and_rationale(penalty_prediction)
+                penalty_score = score_rationale.get('score')  
+                penalty_rationale = score_rationale.get('rationale') 
                 row_dict = row.to_dict()
 
                 if not isinstance(score, float) and score is None:
                     score = 0.0
 
-                row_dict['score'] = score
-                row_dict['rationale'] = rationale
+                if not isinstance(penalty_score, float) and penalty_score is None:
+                    penalty_score = 0.0
+
+                row_dict['match_score'] = score
+                row_dict['match_rationale'] = rationale
+                row_dict['penalty_score'] = penalty_score
+                row_dict['penalty_rationale'] = penalty_rationale
+                row_dict['score'] = score + penalty_score  # additon since penalty_score is already negated
                 scored_rows[query].append(row_dict)
         
         reranked_dict = self._rerank_rows_by_score(scored_rows)
@@ -246,4 +301,4 @@ Finally, create a valid JSON with two keys: total_score and rationale. Remember 
             
 if __name__ == '__main__':
     reranker = Reranker()
-    reranker.rerank('./data/evaluate/site-search-results-test-set-3-cdn.jsonl', './data/evaluate/site-search-results-test-set-3-cdn-reranked.jsonl', k=10)
+    reranker.rerank('./data/evaluate/site-search-results-test-set-3.jsonl', './data/evaluate/site-search-results-test-set-3-reranked.jsonl', k=10)

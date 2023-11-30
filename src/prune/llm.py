@@ -21,7 +21,7 @@ class LLM:
     def _initialize_model(self) -> ChatVertexAI:
         """Load the chat model from Vertex AI."""
         try:
-            return ChatVertexAI(model_name=MODEL_NAME, temperature=0, max_output_tokens=512, verbose=True)
+            return ChatVertexAI(model_name=MODEL_NAME, temperature=0, max_output_tokens=1024, verbose=True)
         except Exception as e:
             logger.error(f"Failed to load the model: {e}")
 
