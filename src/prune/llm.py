@@ -8,7 +8,7 @@ from typing import List, Dict
 import jsonlines
 
 
-MODEL_NAME = 'chat-bison'
+MODEL_NAME = 'chat-bison@latest'
 
 class LLM:
     """Language Learning Model for classifying finance-related PDFs based on topics."""

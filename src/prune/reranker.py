@@ -1,17 +1,34 @@
 from src.config.logging import logger
 from collections import defaultdict
-from typing import Dict, List, Any
 from functools import lru_cache
 from src.prune.llm import LLM
+from typing import Generator
+from typing import Tuple
+from typing import Dict
+from typing import List
+from typing import Any
 import jsonlines
-import json
+import string
+import re
 
 
 class SearchResult:
     """
-    Class representing a search result from a JSONL file.
+    Represents a search result from a JSONL file.
+
+    Attributes:
+        query (str): The search query.
+        rank (int): The rank of the search result.
+        title (str): The title of the search result.
+        link (str): The URL link of the search result.
+        snippet (str): The snippet or summary of the search result.
+        metatags_title (str): The title obtained from metadata.
+        subject (str): The subject or category of the search result.
+        creationdate (str): The creation date of the search result.
     """
-    def __init__(self, query, rank, title, link, snippet, metatags_title, subject, creationdate):
+
+    def __init__(self, query: str, rank: int, title: str, link: str, snippet: str, 
+                 metatags_title: str, subject: str, creationdate: str) -> None:
         self.query = query
         self.rank = rank
         self.title = title
@@ -21,12 +38,15 @@ class SearchResult:
         self.subject = subject
         self.creationdate = creationdate
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<SearchResult for: {self.query}>"
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         """
         Converts the SearchResult instance into a dictionary.
+        
+        Returns:
+            Dict[str, Any]: A dictionary representation of the SearchResult instance.
         """
         return {
             'query': self.query,
@@ -42,31 +62,37 @@ class SearchResult:
 
 class Reranker:
     """
-    A utility class for re-ranking site search results based on specific query components.
-    This class leverages a Large Language Model (LLM) for parsing and scoring search result metadata.
+    Utility class for re-ranking site search results based on specific query components using a Large Language Model (LLM).
+
+    Attributes:
+        llm (LLM): An instance of a Large Language Model for parsing search results.
+        cache_size (int): The maximum number of cached query results.
     """
 
-    def __init__(self, cache_size=100) -> None:
+    def __init__(self, cache_size: int = 100) -> None:
         """
         Initializes the Reranker with an instance of LLM and sets up caching.
-        :param cache_size: The maximum number of cached query results.
+
+        Parameters:
+            cache_size (int): The maximum number of cached query results.
         """
         self.llm = LLM()
         self.parse_query_cached = lru_cache(maxsize=cache_size)(self._parse_query_uncached)
         logger.info("Reranker initialized with cache size: %s", cache_size)
 
-    def _parse_jsonl_file(self, file_path: str):
+    def _parse_jsonl_file(self, file_path: str) -> Generator[SearchResult, None, None]:
         """
         Reads and parses a JSONL file, yielding each line as a SearchResult object.
 
-        :param file_path: Path to the JSONL file.
-        :return: Generator yielding each line as a SearchResult object.
+        Parameters:
+            file_path (str): Path to the JSONL file.
+
+        Yields:
+            SearchResult: An instance of SearchResult for each line in the JSONL file.
         """
         with jsonlines.open(file_path) as reader:
             for obj in reader:
-                search_result = SearchResult(**obj)
-                yield search_result
-
+                yield SearchResult(**obj)
 
     @lru_cache(maxsize=None)  # Cache for repeated queries
     def _parse_query_uncached(self, query: str) -> dict:
@@ -76,26 +102,40 @@ class Reranker:
         :return: Dictionary of parsed query components.
         """
         try:
-            prompt = f"""Given a query (QUERY), break it into key-value pairs (KV), similar to the examples shown below:
+            # Remove 'site:' and 'filetype:' parts
+            query = re.sub(r"\s+site:.*?(\s|$)", " ", query)
+            query = re.sub(r"\s+filetype:.*?(\s|$)", " ", query)
 
-QUERY => Brookline Bancorp Inc USA 2022 10-K/A site:cloudfront.net/ filetype:pdf
-KV => company_name=Brookline Bancorp Inc|country=USA|year=2022|report_type=10-K/A
+            # Extract year using a regular expression for any four-digit number
+            year_match = re.search(r"\b(\d{4})\b", query)
+            if not year_match:
+                return "Year not found in query"
 
-QUERY => Commerzbank AG GERMANY 2022 10-Q site:commerzbank.com/ filetype:pdf
-KV => company_name=Commerzbank AG|country=GERMANY|year=2022|report_type=10-Q
+            year = year_match.group(1)
+            year_index = query.index(year)
 
-QUERY => Hamburger Sparkasse AG GERMANY 2022 Annual Report site:haspa.de/ filetype:pdf
-KV => company_name=Hamburger Sparkasse AG|country=GERMANY|year=2022|report_type=Annual Report
+            # Everything after year is report type
+            report_type = query[year_index + len(year):].strip()
 
-QUERY => {query}
-KV =>"""
-            prediction = self.llm.model.predict(prompt)
-            return prediction
+            # Everything before year is split into country and company name
+            before_year = query[:year_index].strip()
+            country_name_split = before_year.rsplit(' ', 1)  # Splitting at the last space
+
+            if len(country_name_split) != 2:
+                return "Could not find country and company name properly"
+
+            company_name, country = country_name_split
+
+            return {
+                "company_name": company_name,
+                "country": country,
+                "year": year,
+                "report_type": report_type
+            }
         except Exception as e:
             logger.error(f"Error parsing query with LLM: {e}")
             return {}
         
-
     def _parse_query(self, query: str) -> dict:
         """
         Parses the query string into key-value pairs, using caching for repeated queries.
@@ -103,132 +143,98 @@ KV =>"""
         :return: Dictionary of parsed query components.
         """
         return self.parse_query_cached(query)
-    
 
-    def _extract_score_and_rationale(self, input_string) -> dict:
+    def _score_result(self, query_components: Dict[str, str], metadata_components: Dict[str, str]) -> Tuple[float, str]:
         """
-        Extracts the score and rationale from a given string containing JSON data.
+        Scores a search result based on its alignment with the query components using string matching techniques.
+        Applies different weights for different types of matches.
 
         Parameters:
-        input_string (str): A string containing JSON data.
+        query_components (Dict[str, str]): Parsed query components.
+        metadata_components (Dict[str, str]): Parsed metadata components.
 
         Returns:
-        dict: A dictionary with 'score' and 'rationale' extracted from the JSON data.
+        Tuple[float, str]: A tuple containing the score and rationale for the search result.
         """
-        # Extracting JSON substring from the input
-        json_start = input_string.find('{')
-        json_end = input_string.rfind('}') + 1
-        json_string = input_string[json_start:json_end]
+        match_score = 0.0
+        rationale = []
 
-        # Replacing newline characters with escape characters for JSON parsing
-        json_string_fixed = json_string.replace('\n', '\\n')
+        # Function to remove punctuation and convert to lower case
+        def clean_string(s):
+            if s is None:
+                return ""
+            return s.translate(str.maketrans('', '', string.punctuation)).lower()
 
-        # Parsing the JSON string
-        try:
-            json_data = json.loads(json_string_fixed)
-        except json.JSONDecodeError as e:
-            return {"error": "JSON decoding error: " + str(e)}
 
-        # Extracting the desired data
-        score = json_data.get('total_score', 'Not found')
-
-        return {
-            "score": score,
-            "rationale": input_string
+        # Weights for different components
+        weights = {
+            "company_name": 8,
+            "report_type": 4,
+            "year": 2,
+            "country": 1
         }
+
+        for key, value in query_components.items():
+            cleaned_value = clean_string(value)
+            for meta_key, meta_value in metadata_components.items():
+                cleaned_meta_value = clean_string(meta_value)
+                # Exact match
+                if cleaned_value in cleaned_meta_value:
+                    # Apply the weight based on the component type
+                    weight = weights.get(key, 1)  # Default weight is 1 if key is not found in weights
+                    match_score += 2 * weight  # Base score is 2, multiplied by the component's weight
+                    rationale.append(f"Exact match for {key}={value} in {meta_key}={meta_value} with weight {weight}.")
+        rationale_str = ' | '.join(rationale)
+        logger.info(f"Scoring result with match score: {match_score} and rationale: {rationale_str}")
+        return match_score, rationale_str
     
 
-    def _score_result_for_penalty(self, query_components: dict, metadata_components) -> str:
+    def _score_result_for_penalty(self, query_components: Dict[str, str], metadata_components: Dict[str, str]) -> Tuple[float, str]:
         """
-        Scores a search result based on its alignment with the query components.
+        Scores a search result for penalties based on its alignment with the query components using string matching.
 
-        :param result: A single search result.
-        :param query_components: Parsed query components.
-        :param metadata_components: Parsed metadata components. 
-        :return: Score for the search result as a JSON string.
+        Parameters:
+        query_components (Dict[str, str]): Parsed query components.
+        metadata_components (Dict[str, str]): Parsed metadata components.
+
+        Returns:
+        Tuple[float, str]: A tuple containing the penalty score and rationale for the search result.
         """
-        prompt = f"""First, extract all the company names from the provided metadata components. List them numerically under the heading 'EXTRACTED COMPANY NAMES'.
 
-METADATA COMPONENTS: => {metadata_components}
+        penalty_score = 0.0
+        rationale = []
 
-EXTRACTED COMPANY NAMES =>
+        # Weights for different components
+        weights = {
+            "company_name": 8,
+            "report_type": 4,
+            "year": 2,
+            "country": 1
+        }
 
-Next, remove any company names from the extracted list that appear in the QUERY COMPONENTS provided below.
-The resulting list, labeled 'REMAINING COMPANY NAMES', should only contain items that are not removed.
+        # Function to remove punctuation and convert to lower case
+        def clean_string(s):
+            if s is None:
+                return ""
+            return s.translate(str.maketrans('', '', string.punctuation)).lower()
 
-QUERY COMPONENTS => {query_components}
+        # Clean the strings in query and metadata components
+        cleaned_query_components = {k: clean_string(v) for k, v in query_components.items()}
+        cleaned_metadata_components = {k: clean_string(v) for k, v in metadata_components.items()}
 
-REMAINING COMPANY NAMES =>
+        # Implement the penalty scoring logic using string matching techniques.
+        for key, value in cleaned_query_components.items():
+            if value not in cleaned_metadata_components.values():
+                # Apply the corresponding weight for the penalty
+                weight = weights.get(key, 1)  # Default weight is 1 if the key is not found in the weights dictionary
+                penalty_score -= weight
+                rationale.append(f"Penalty for missing {key} (Weight: {weight}).")
 
-Start with an initial penalty score of 0 for both company names.
+        rationale_str = ' | '.join(rationale)
+        logger.info(f"Penalty scoring result with total score: {penalty_score} and rationale: {rationale_str}")
 
-INITIAL_PENALTY_SCORE_COMPANY_NAMES = 0
+        return penalty_score, rationale_str
 
-Subtract 4 from the initial penalty score for each remaining company name.
-VERY IMPORTANT: DO NOT count None, nothing, or an empty list as 1 when computing scores. Validate this by counting the number of REMAINING COMPANY NAMES. If it is 0, DO NOT subtract.
-
-IMPORTANT: The FINAL PENALTY SCORE should always be zero or negative.
-
-.
-
-Provide a rationale for each score and explain how the FINAL PENALTY SCORE was computed.
-
-RATIONALE =>
-
-FINAL PENALTY SCORE =>
-
-IMPORTANT: The FINAL PENALTY SCORE should match what is explained in the rationale.
-
-Lastly, create a JSON string with a single key, "total_score". The value should be the final penalty score calculated in the previous step.""" 
-        prediction = self.llm.model.predict(prompt)
-        return prediction
-
-    def _score_result(self, query_components: dict, metadata_components) -> str:
-        """
-        Scores a search result based on its alignment with the query components.
-
-        :param result: A single search result.
-        :param query_components: Parsed query components.
-        :param metadata_components: Parsed metadata components. 
-        :return: Score for the search result as a JSON string.
-        """
-        prompt = f"""First, calculate the matching scores for each query component against each metadata component using the given query components (QUERY_COMPONENTS) and metadata components (METADATA_COMPONENTS).
-
-For example, search `company_name` against `snippet`, `title`, `subject`, `link`, and `metatags_title` in that order. Repeat this process for `report_type`, `country`, and `year`. Additionally, perform an extra search for `year` against `creation_date`.
-
-QUERY_COMPONENTS => {query_components}
-METADATA_COMPONENTS => {metadata_components}
-
-Next, assign a score to each query component based on confidence levels:
-0 = not confident
-1 = partially confident
-2 = confident
-
-Then, multiply each score by its corresponding weight:
-company name = 8
-report type = 4
-year = 2
-country = 1
-
-Remember to apply the weights.
-
-A query component like `company_name` might match several metadata components such as `title`, `snippet`, and `link`. In these cases, add the scores for each match.
-
-IMPORTANT: If there is an exact match with the company name, double the score. An "exact match" is when a specific sequence of words is found in the text exactly as it appears, with no variation. For example, if the company name is "Columbia Financial Inc.", the snippet should contain these three words in the correct order. Casing and minor punctuation should be ignored.
-
-SCORES =>
-
-Next, calculate the total score by adding all the weighted scores.
-
-TOTAL SCORE =>
-
-Then, provide a rationale for each assigned confidence level and the calculated score for each component. Specify where the match was found, such as the company name in the snippet, or the report type in the subject.
-
-RATIONALE =>
-
-Finally, generate a valid JSON output with the ONLY ONE key as `total_score`, and the value being the total score computed above."""
-        prediction = self.llm.model.predict(prompt)
-        return prediction
     
 
     def _rerank_rows_by_score(self, data: Dict[str, List[Dict[str, Any]]]) -> Dict[str, List[Dict[str, Any]]]:
@@ -252,7 +258,7 @@ Finally, generate a valid JSON output with the ONLY ONE key as `total_score`, an
         return data
 
 
-    def rerank(self, input_file_path, output_file_path, k=10) -> None:
+    def rerank(self, input_file_path, output_file_path, k=500) -> None:
         scored_rows = defaultdict(list)
 
         for row in self._parse_jsonl_file(input_file_path):
@@ -261,34 +267,22 @@ Finally, generate a valid JSON output with the ONLY ONE key as `total_score`, an
                 query = row.query
                 logger.info(f'Query: {query} | Rank: {rank}')
                 query_components = self._parse_query(query)
+                logger.info(f'Query components = {query_components}')
                 snippet = row.snippet
                 title = row.title
                 subject = row.subject
                 link = row.link
                 creation_date = row.creationdate
                 metatags_title = row.metatags_title
-                result = f"snippet={snippet}|title={title}|subject={subject}|link={link}|creation_date={creation_date}|metatags_title={metatags_title}"
-                prediction = self._score_result(query_components, result)
-                score_rationale = self._extract_score_and_rationale(prediction)
-                score = score_rationale.get('score')
-                rationale = score_rationale.get('rationale')        
-                penalty_prediction = self._score_result_for_penalty(query_components, result)
-                score_rationale = self._extract_score_and_rationale(penalty_prediction)
-                penalty_score = score_rationale.get('score')  
-                penalty_rationale = score_rationale.get('rationale') 
+                result = {'snippet': snippet, 'title': title, 'subject': subject, 'link': link, 'creation_date': creation_date, 'metatags_title': metatags_title}
+                match_score, match_rationale = self._score_result(query_components, result)
+                penalty_score, penalty_rationale = self._score_result_for_penalty(query_components, result)
                 row_dict = row.to_dict()
-
-                if not isinstance(score, float) and score is None:
-                    score = 0.0
-
-                if not isinstance(penalty_score, float) and penalty_score is None:
-                    penalty_score = 0.0
-
-                row_dict['match_score'] = score
-                row_dict['match_rationale'] = rationale
+                row_dict['match_score'] = match_score
+                row_dict['match_rationale'] = match_rationale
                 row_dict['penalty_score'] = penalty_score
                 row_dict['penalty_rationale'] = penalty_rationale
-                row_dict['score'] = score + penalty_score  # additon since penalty_score is already negated
+                row_dict['score'] = match_score + penalty_score  # additon since penalty_score is already negated
                 scored_rows[query].append(row_dict)
         
         reranked_dict = self._rerank_rows_by_score(scored_rows)
@@ -301,4 +295,4 @@ Finally, generate a valid JSON output with the ONLY ONE key as `total_score`, an
             
 if __name__ == '__main__':
     reranker = Reranker()
-    reranker.rerank('./data/evaluate/site-search-results-test-set-3.jsonl', './data/evaluate/site-search-results-test-set-3-reranked.jsonl', k=10)
+    reranker.rerank('./data/evaluate/site-search-results-test-set-3-cdn.jsonl', './data/evaluate/site-search-results-test-set-3-cdn-reranked-string-matching.jsonl', k=30)
