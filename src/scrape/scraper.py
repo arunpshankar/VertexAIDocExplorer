@@ -1,11 +1,15 @@
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from src.config.logging import logger
-from selenium import webdriver
+from urllib.parse import urlparse
+from urllib.parse import urljoin
 from bs4 import BeautifulSoup
-from typing import List, Set
+from selenium import webdriver
+from typing import Tuple
+from typing import List
+from typing import Set
 import time
-
+import csv 
 
 class PDFScraper:
     """
@@ -71,41 +75,132 @@ class PDFScraper:
         """
         unique_pdf_urls = set()
         urls = self._scrape_urls_from_page(base_url)
+
         for url in urls:
-            if ".pdf" in url and 'inline' in url:
-                pdf_url = base_url + url.split('?')[0]
-                unique_pdf_urls.add(pdf_url)
+            if url.endswith('.pdf'):
+                unique_pdf_urls.add(url)
 
         return unique_pdf_urls
 
-def scrape_to_file(base_url: str, webdriver_path: str, output_file_path: str):
+def read_input_csv(file_path: str) -> List[Tuple[str, str]]:
     """
-    Scrape PDF URLs from a base URL and save them to a file.
+    Reads a CSV file and returns a list of tuples containing bank name and URL.
 
     Args:
-    base_url (str): The base URL to start scraping from.
-    webdriver_path (str): The path to the Chrome WebDriver.
-    output_file_path (str): The path to save the output file.
+        file_path (str): Path to the input CSV file.
+
+    Returns:
+        List[Tuple[str, str]]: A list of tuples with bank name and URL.
+    """
+    data = []
+    with open(file_path, mode='r', newline='', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        next(reader, None)  # Skip the header row
+        for row in reader:
+            data.append((row[0], row[1]))
+    return data
+
+def write_output_csv(file_path: str, data: List[Tuple[str, str]]):
+    """
+    Writes the output to a CSV file.
+
+    Args:
+        file_path (str): Path to the output CSV file.
+        data (List[Tuple[str, str]]): Data to be written to the CSV file.
+    """
+    with open(file_path, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(['bank', 'base_url', 'pdf_url', 'resolved_pdf_url'])
+        for row in data:
+            writer.writerow(row)
+
+
+
+
+def extract_root_domain(url: str) -> str:
+    """
+    Extracts and returns the root domain from a given URL.
+
+    Parameters:
+    url (str): The URL from which the root domain needs to be extracted.
+
+    Returns:
+    str: The root domain of the URL. Returns '' if the URL is invalid.
+    """
+    try:
+        parsed_url = urlparse(url)
+        root_domain = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_url)
+        return root_domain
+    except Exception as e:
+        print(f"Error extracting domain: {e}")
+        return ''
+
+def resolve_pdf_url(base_url: str, pdf_url: str) -> str:
+    """
+    Resolve a PDF URL to a full URL using the base URL's root domain. 
+    Handles various forms of relative URLs.
+
+    Args:
+    base_url (str): The base URL.
+    pdf_url (str): The relative or full URL to the PDF.
+
+    Returns:
+    str: The full URL to the PDF, or an empty string if invalid.
+    """
+    # Extract the root domain from the base URL
+    root_domain = extract_root_domain(base_url)
+
+    if not root_domain:
+        print("Invalid base URL")
+        return ''
+
+    # Check if the PDF URL is already a full URL
+    if pdf_url.lower().startswith('http://') or pdf_url.lower().startswith('https://'):
+        return pdf_url
+
+    # Use urljoin to handle relative URLs like '../../' and '../'
+    full_pdf_url = urljoin(root_domain, pdf_url)
+
+    # Validate the resolved URL
+    try:
+        parsed_url = urlparse(full_pdf_url)
+        if parsed_url.scheme and parsed_url.netloc:
+            return full_pdf_url
+        else:
+            print("Resolved URL is invalid")
+            return ''
+    except Exception as e:
+        print(f"Error resolving PDF URL: {e}")
+        return ''
+
+
+
+
+def scrape_to_file(input_file_path: str, webdriver_path: str, output_file_path: str):
+    """
+    Scrape PDF URLs from base URLs in a CSV file and save them to another CSV file.
+
+    Args:
+        input_file_path (str): Path to input CSV file with bank names and base URLs.
+        webdriver_path (str): Path to the Chrome WebDriver.
+        output_file_path (str): Path to save the output CSV file.
     """
     scraper = PDFScraper(webdriver_path)
-    pdf_urls = scraper.scrape_pdf_urls(base_url)
-    
-    unique_non_pdf_urls = set()
-    for url in scraper._scrape_urls_from_page(base_url):
-        if ".pdf" not in url and "investor-relations" in url:
-            unique_non_pdf_urls.add(url)
+    input_data = read_input_csv(input_file_path)
+    output_data = []
 
-    for non_pdf_url in unique_non_pdf_urls:
-        pdf_urls.update(scraper.scrape_pdf_urls(non_pdf_url))
+    for bank, base_url in input_data:
+        pdf_urls = scraper.scrape_pdf_urls(base_url)
+        for pdf_url in pdf_urls:
+            resolved_pdf_url = resolve_pdf_url(base_url, pdf_url)
+            output_data.append((bank, base_url, pdf_url, resolved_pdf_url))
 
-    logger.info(f"Total number of unique PDF URLs found: {len(pdf_urls)}")
-    with open(output_file_path, 'w+') as out:
-        for url in pdf_urls:
-            out.write(url + '\n')
+    logger.info(f"Total number of unique PDF URLs found: {len(output_data)}")
+    write_output_csv(output_file_path, output_data)
 
 if __name__ == '__main__':
     scrape_to_file(
-        base_url="https://investor-relations.commerzbank.com/financial-reports",
+        input_file_path='./src/scrape/input_urls.csv',
         webdriver_path='./src/scrape/chromedriver',
-        output_file_path='./src/scrape/pdf_urls.txt')
-       
+        output_file_path='./src/scrape/pdf_urls.csv'
+    )

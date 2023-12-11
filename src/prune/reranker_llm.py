@@ -148,21 +148,23 @@ KV =>"""
         :return: Score for the search result as a JSON string.
         """
         prompt = f"""First, extract all the company names from the provided metadata components. List them numerically under the heading 'EXTRACTED COMPANY NAMES'.
-important: focus on the title and snippet fields from the metadata components provided below especially
+
 METADATA COMPONENTS: => {metadata_components}
 
 EXTRACTED COMPANY NAMES =>
 
-Next, remove the company name from the extracted list if the company name is already present in the QUERY COMPONENTS provided below.
+Next, remove any company names from the extracted list that appear in the QUERY COMPONENTS provided below.
+The resulting list, labeled 'REMAINING COMPANY NAMES', should only contain items that are not removed.
+
 QUERY COMPONENTS => {query_components}
 
-The resulting list now, labeled 'REMAINING COMPANY NAMES', should only contain only the company names that were not removed.
 REMAINING COMPANY NAMES =>
 
-Start with an initial penalty score of 0
+Start with an initial penalty score of 0 for both company names.
+
 INITIAL_PENALTY_SCORE_COMPANY_NAMES = 0
 
-Subtract 4 from the initial penalty score for each one of the companies in REMAINING COMPANY NAMES list.
+Subtract 4 from the initial penalty score for each remaining company name.
 VERY IMPORTANT: DO NOT count None, nothing, or an empty list as 1 when computing scores. Validate this by counting the number of REMAINING COMPANY NAMES. If it is 0, DO NOT subtract.
 
 IMPORTANT: The FINAL PENALTY SCORE should always be zero or negative.
@@ -211,7 +213,6 @@ Remember to apply the weights.
 A query component like `company_name` might match several metadata components such as `title`, `snippet`, and `link`. In these cases, add the scores for each match.
 
 IMPORTANT: If there is an exact match with the company name, double the score. An "exact match" is when a specific sequence of words is found in the text exactly as it appears, with no variation. For example, if the company name is "Columbia Financial Inc.", the snippet should contain these three words in the correct order. Casing and minor punctuation should be ignored.
-DO NOT double the score if it is a partial match. 
 
 SCORES =>
 
