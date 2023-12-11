@@ -82,6 +82,7 @@ class PDFScraper:
 
         return unique_pdf_urls
 
+
 def read_input_csv(file_path: str) -> List[Tuple[str, str]]:
     """
     Reads a CSV file and returns a list of tuples containing bank name and URL.
@@ -100,6 +101,7 @@ def read_input_csv(file_path: str) -> List[Tuple[str, str]]:
             data.append((row[0], row[1]))
     return data
 
+
 def write_output_csv(file_path: str, data: List[Tuple[str, str]]):
     """
     Writes the output to a CSV file.
@@ -113,8 +115,6 @@ def write_output_csv(file_path: str, data: List[Tuple[str, str]]):
         writer.writerow(['bank', 'base_url', 'pdf_url', 'resolved_pdf_url'])
         for row in data:
             writer.writerow(row)
-
-
 
 
 def extract_root_domain(url: str) -> str:
@@ -134,6 +134,7 @@ def extract_root_domain(url: str) -> str:
     except Exception as e:
         print(f"Error extracting domain: {e}")
         return ''
+
 
 def resolve_pdf_url(base_url: str, pdf_url: str) -> str:
     """
@@ -174,8 +175,6 @@ def resolve_pdf_url(base_url: str, pdf_url: str) -> str:
         return ''
 
 
-
-
 def scrape_to_file(input_file_path: str, webdriver_path: str, output_file_path: str):
     """
     Scrape PDF URLs from base URLs in a CSV file and save them to another CSV file.
@@ -197,6 +196,7 @@ def scrape_to_file(input_file_path: str, webdriver_path: str, output_file_path: 
 
     logger.info(f"Total number of unique PDF URLs found: {len(output_data)}")
     write_output_csv(output_file_path, output_data)
+
 
 if __name__ == '__main__':
     scrape_to_file(
