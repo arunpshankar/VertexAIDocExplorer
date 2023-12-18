@@ -74,11 +74,27 @@ class PDFScraper:
         Set[str]: A set of unique PDF URLs.
         """
         unique_pdf_urls = set()
+        non_pdf_urls = set()
         urls = self._scrape_urls_from_page(base_url)
 
         for url in urls:
-            if url.endswith('.pdf'):
+            if url.endswith(".pdf") and not "inline" in url:
                 unique_pdf_urls.add(url)
+            elif ".pdf" in url and 'inline' in url:
+                pdf_url = url.split('?')[0]
+                unique_pdf_urls.add(pdf_url)
+            elif ".pdf" not in url and url.startswith("http"):
+                non_pdf_urls.add(url)
+
+        # Perform one more hop of scraping
+        for non_pdf_url in non_pdf_urls:
+            urls = self._scrape_urls_from_page(non_pdf_url)
+            for url in urls:
+                if url.endswith(".pdf") and not "inline" in url:
+                    unique_pdf_urls.add(url)
+                elif ".pdf" in url and 'inline' in url:
+                    pdf_url = url.split('?')[0]
+                    unique_pdf_urls.add(pdf_url)
 
         return unique_pdf_urls
 
@@ -132,7 +148,7 @@ def extract_root_domain(url: str) -> str:
         root_domain = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_url)
         return root_domain
     except Exception as e:
-        print(f"Error extracting domain: {e}")
+        logger.error(f"Error extracting domain: {e}")
         return ''
 
 
@@ -150,9 +166,9 @@ def resolve_pdf_url(base_url: str, pdf_url: str) -> str:
     """
     # Extract the root domain from the base URL
     root_domain = extract_root_domain(base_url)
-
+    
     if not root_domain:
-        print("Invalid base URL")
+        logger.error("Invalid base URL")
         return ''
 
     # Check if the PDF URL is already a full URL
@@ -168,10 +184,10 @@ def resolve_pdf_url(base_url: str, pdf_url: str) -> str:
         if parsed_url.scheme and parsed_url.netloc:
             return full_pdf_url
         else:
-            print("Resolved URL is invalid")
+            logger.error("Resolved URL is invalid")
             return ''
     except Exception as e:
-        print(f"Error resolving PDF URL: {e}")
+        logger.error(f"Error resolving PDF URL: {e}")
         return ''
 
 
@@ -190,6 +206,7 @@ def scrape_to_file(input_file_path: str, webdriver_path: str, output_file_path: 
 
     for bank, base_url in input_data:
         pdf_urls = scraper.scrape_pdf_urls(base_url)
+
         for pdf_url in pdf_urls:
             resolved_pdf_url = resolve_pdf_url(base_url, pdf_url)
             output_data.append((bank, base_url, pdf_url, resolved_pdf_url))

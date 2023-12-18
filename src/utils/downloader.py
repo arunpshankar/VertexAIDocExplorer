@@ -63,3 +63,31 @@ async def download(jsonl_path, output_folder):
         
         # Gather all the download tasks and execute them concurrently
         await asyncio.gather(*tasks)
+
+
+async def download_from_txt(txt_path, output_folder):
+    """
+    Reads URLs from a text file and downloads each as a PDF file.
+
+    Args:
+        txt_path (Path): Path to the text file containing URLs.
+        output_folder (Path): Folder to save the downloaded PDFs.
+    """
+    output_folder.mkdir(parents=True, exist_ok=True)
+
+    async with aiohttp.ClientSession() as session:
+        tasks = []
+
+        # Open and read the text file
+        async with aio_open(txt_path, 'r') as file:
+            async for line in file:
+                url = line.strip()
+                if url:
+                    # Extract filename from URL
+                    filename = url.split('/')[-1]
+                    sanitized_filename = sanitize_filename(filename)
+                    destination = output_folder / sanitized_filename
+                    tasks.append(download_file(session, url, destination))
+
+        # Execute all download tasks concurrently
+        await asyncio.gather(*tasks)
