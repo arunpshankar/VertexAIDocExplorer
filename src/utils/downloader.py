@@ -108,10 +108,13 @@ async def download_from_csv(csv_path, output_folder):
             csv_reader = csv.DictReader(file)
             for row in csv_reader:
                 url = row.get('resolved_pdf_url', '').strip()
+                bank_name = row.get('bank', '').strip()
+                output_path = Path(f'{output_folder}/{bank_name}')
+                output_path.mkdir(parents=True, exist_ok=True)
                 if url:
                     filename = url.split('/')[-1]
                     sanitized_filename = sanitize_filename(filename)
-                    destination = output_folder / sanitized_filename
+                    destination = f'{output_path}/{sanitized_filename}'
                     tasks.append(download_file(session, url, destination))
 
         # Execute all download tasks concurrently
