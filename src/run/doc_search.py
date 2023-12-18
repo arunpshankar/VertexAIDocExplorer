@@ -32,4 +32,4 @@ def doc_search_test(query: str) -> None:
 
 
 if __name__ == '__main__':
-    doc_search_test(query='what is hsbc LCR 2021')
+    doc_search_test(query='annual report "commerzbank"')
