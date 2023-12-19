@@ -1,6 +1,6 @@
 project_id: 'arun-genai-bb'
 credentials_json: './credentials/key.json'
-site_search_datastore_id: 'moodys-search_1697576889487'
+site_search_datastore_id: 'cdn_1702930999202'
 doc_search_datastore_id: 'hsbc-docs_1698749751116'
 doc_search_bucket: 'financial-pdf-documents'
 user_pseudo_id: '12345'

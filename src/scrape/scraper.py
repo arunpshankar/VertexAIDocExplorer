@@ -51,7 +51,7 @@ class PDFScraper:
         try:
             logger.info(f"Opening the webpage: {url}")
             driver.get(url)
-            time.sleep(5)  # Wait for JavaScript to load
+            time.sleep(3)  # Wait for JavaScript to load
             html_content = driver.page_source
             soup = BeautifulSoup(html_content, 'html.parser')
             a_tags = soup.find_all('a', href=True)
@@ -76,6 +76,7 @@ class PDFScraper:
         unique_pdf_urls = set()
         non_pdf_urls = set()
         urls = self._scrape_urls_from_page(base_url)
+        root_domain = extract_root_domain(base_url)
 
         for url in urls:
             if url.endswith(".pdf") and not "inline" in url:
@@ -84,7 +85,9 @@ class PDFScraper:
                 pdf_url = url.split('?')[0]
                 unique_pdf_urls.add(pdf_url)
             elif ".pdf" not in url and url.startswith("http"):
-                non_pdf_urls.add(url)
+                domain = extract_root_domain(url)
+                if domain == root_domain:
+                    non_pdf_urls.add(url)
 
         # Perform one more hop of scraping
         for non_pdf_url in non_pdf_urls:
