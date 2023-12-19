@@ -1,14 +1,17 @@
-import asyncio
-from concurrent.futures import ThreadPoolExecutor
-from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from bs4 import BeautifulSoup
-import csv
-from typing import Tuple, List, Set
-from urllib.parse import urlparse, urljoin
+from concurrent.futures import ThreadPoolExecutor
 from src.config.logging import logger
+from urllib.parse import urlparse
+from urllib.parse import urljoin
+from selenium import webdriver
+from bs4 import BeautifulSoup
+from typing import Tuple
+from typing import List
+from typing import Set
+import asyncio
 import time 
+import csv
 
 
 class PDFScraper:
@@ -128,9 +131,11 @@ async def scrape_urls_from_page_async(scraper, url, executor):
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(executor, scraper._scrape_urls_from_page_sync, url)
 
+
 async def scrape_pdf_urls_async(scraper, base_url, executor):
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(executor, scraper.scrape_pdf_urls_sync, base_url)
+
 
 # Asynchronous file operations (can be adapted to use aiofiles if needed)
 async def read_input_csv_async(file_path: str) -> List[Tuple[str, str]]:
@@ -139,6 +144,7 @@ async def read_input_csv_async(file_path: str) -> List[Tuple[str, str]]:
         next(reader, None)  # Skip the header row
         data = [(row[0], row[1]) for row in reader]
     return data
+
 
 async def write_output_csv_async(file_path: str, data: List[Tuple[str, str, str, str]]):
     with open(file_path, mode='w', newline='', encoding='utf-8') as file:
