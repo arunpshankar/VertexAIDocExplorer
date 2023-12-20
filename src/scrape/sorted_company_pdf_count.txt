@@ -1,0 +1,540 @@
+Company	Count
+Allahabad Bank	5832
+Grupo Financiero Scotiabank Inverlat SA DE SV	2973
+Grupo Financiero BBVA México	2529
+Banco Bilbao Vizcaya Argentaria SA	2455
+Banco Nacional de Fomento	1398
+Investec Bank (Mauritius) Limited	1283
+Bank of Ireland Mortgage Bank	1168
+Liberbank SA	1014
+Investec Limited	973
+Public Financial Holdings Limited	951
+Standard Chartered Bank Nepal Limited	878
+"JSC ""UNEX BANK"""	876
+Rizal Commercial Banking Corp.	851
+Bayport Management Limited	808
+China Success Finance Group	750
+Bank of Scotland Plc	726
+J.P. Morgan SE	723
+Cooperativa De Economia E Credito Mutuo Dos Integrantes Do Ministerio Publico Do Rio Grande Do Sul	648
+International Investment Bank OJSC	614
+Nqaba Finance 1 (RF) Ltd	595
+MCB Bank Limited	545
+Addiko Bank AG	539
+Asia Plus Group Holdings Public Company Limited	521
+United Gulf Bank (BSC) EC	451
+Canada Infrastructure Bank	350
+Tisco Bank Public Company Limited	340
+Cooperativa De Crédito De Livre Admissão De Associados Sul Catarinense	325
+Banca Popolare di Puglia e Basilicata	318
+Banka Per Biznes	312
+Amlak Finance PJSC	300
+Cooperativa De Crédito, Poupança e Investimento do Araguaia e Xingu	292
+State Bank of India	285
+DANMARKS SKIBSKREDIT A/S	278
+Grupo Financiero Improsa SA	269
+Bank Mestika Dharma	258
+Nepal Bank Limited	256
+Omni Banco S.A.	252
+National Bank of Kuwait S.A.K.P.	248
+Arion Banki hf	248
+Arab Investment And Export Credit Guarantee Corporation	247
+United Bank For Africa (Uk) Limited	247
+Banco de Desenvolvimento de Minas Gerais SA - BDMG	244
+UBS Group AG	232
+AS LPB Bank	227
+Bolig- og Naeringskreditt AS	213
+Noor Financial Investment Company	211
+Alandsbanken Abp	209
+Mizuho Bank México, S.A.	204
+Banco Falabella	199
+Prime Bank Limited	191
+ABC Arbitrage SA	184
+Australia and New Zealand Banking Group Limited	182
+Banco Central de la Republica Argentina	178
+Fusion Microfinance Private Limited	177
+Catella Bank SA	177
+Volksbank Oelde - Ennigerloh - Neubeukum eG	175
+"Closed Joint-Stock Company ""Demir Kyrgyz International Bank"""	175
+Cooperativa de Crédito, Poupança e Investimento Valor Sustentável	171
+Cooperativa De Crédito E Investimento De Livre Admissão Agroempresarial	171
+Cooperativa de Crédito, Poupança e Investimento da Região dos Vales	171
+Berenberg Bank - Joh. Berenberg, Gossler & Co. KG	171
+Closed Joint Stock Company Alfa Bank	167
+mBank SA	167
+Bank Ochrony Srodowiska SA - BOS SA	156
+ARKEA HOME LOANS SFH	153
+Credit Agricole Egypt SAE	151
+Bank of India	146
+SPAREBANK 1 HELGELAND	143
+RATHBONES GROUP PLC	143
+Standard Chartered Yatirim Bankasi Turk AS	142
+Allied Irish Banks plc	139
+Sindhu Bikash Bank	138
+HSBC Sri Lanka Branch	133
+EFG-Hermes Holding SAE	132
+Iller Bankasi A.S.	125
+Credito Emiliano SpA	123
+Raiffeisen Bank Zrt	121
+Musashino Bank	118
+Suedtirol Bank AG - Alto Adige Banca SP A.	114
+Andorra Banc Agricol Reig SA - AndBank	114
+Kvinesdal Sparebank	111
+Commonwealth Bank Ltd	111
+Banco Consorcio	108
+Rietumu Bank Group	107
+Volksbank Esens eG	106
+Laurentian Bank of Canada	106
+TriCo Bancshares	106
+Bonum Bank Ltd	103
+Bank BPH SA	103
+Fondo para el Financiamiento del Sector Agropecuario	103
+Banco de Bogota SA	100
+Securities Group Company K.S.C.	96
+Privredna Banka Sarajevo D.D.	96
+Banco de Inversion Y Comercio Exterior SA - BICE	95
+SGB Bank SA	94
+Cultura Sparebank	94
+Mita Securities Co.,Ltd	93
+Guyana Bank for Trade & Industry Ltd	90
+Banco Nacional de Comercio Exterior SNC - BANCOMEXT	90
+Faisal Islamic Bank of Egypt	90
+Mizuho Bank Ltd	89
+Bank Muamalat Malaysia Berhad	87
+Finibanco Angola SA	87
+Societe Maghrebail Sa	86
+Qatar Central Bank	84
+Kommunalbanken AS	84
+"""CRNOGORSKA KOMERCIJALNA BANKA"" A.D. PODGORICA"	83
+Banco Ctt	83
+Miteri Development Bank Ltd	81
+Maroc Leasing Cie Marocaine De Location d'Equipements SA	80
+"""Farm Credit Armenia"" Universal Credit Organization Commercial Cooperative"	79
+JSCMB 'Ipoteka bank'	78
+Deutsche Bank Polska S.A.	75
+SpareBank 1 SMN	74
+Cagamas Berhad	73
+Iwata Shinkin Bank	73
+Bank AlBilad	73
+Banca Cassa di risparmio di Savigliano SpA - Banca CRS	72
+Skudenes & Aakra Sparebank	72
+SRPSKA BANKA AD BEOGRAD	72
+Diler Yatirim Bankasi AS	71
+TF Varlik Kiralama AS	71
+VersaBank	71
+Bank Asia Limited	70
+Bandhan Bank Limited	70
+Nesset Sparebank	70
+Baltic International Bank	69
+Murakami Shinkin Bank	68
+Financiera de Desarrollo Territorial S.A. Findeter	68
+AmInvestment Bank Berhad	68
+PT Bank ANZ Indonesia	67
+Burgan Yatirim Menkul Degerler Anonim Sirketi	64
+Multi inversiones Banco Cooperativo de los Trabajadores, S. C. de R. L. de C. V.	63
+Volksbank Bielefeld Guetersloh eG	62
+Sociedade Para O Financiamento Do Desenvolvimento,Instituição Financeira De Crédito	61
+Banco Ficohsa Panama S.A.	61
+Volksbank eG Pattensen	61
+Secure Trust Bank Plc	60
+Haitong International Securities Group Limited	59
+Community and Workers of Jamaica Co-operative Credit Union Ltd.	58
+Banplus Banco Universal CA	58
+Gladbacher Bank AG von 1922	58
+ProCredit Holding AG & Co. KGaA	58
+Siemens Financieringsmaatschappij	57
+Asian Infrastructure Investment Bank	57
+GTBankTanzania	55
+Capital Small Finance Bank Limited	55
+MUFG Bank, Ltd	54
+Banco Pyme De La Comunidad	54
+Volksbank Raiffeisenbank Bad Kissingen eG	54
+BANCA POPOLARE DI SONDRIO SOCIETA' PER AZIONI	54
+Al Rayan Bank Plc	54
+AXIS Bank Limited	53
+Banca di Credito Cooperativo di Alba, Langhe, Roero e Canavese Scrl	53
+Cairo Amman Bank	53
+Halk Banka AD Skopje	53
+Bayerische Landesbank	52
+Trust Bank Ltd (The)	52
+International Islamic Trade Finance Corporation	50
+Banco Nacional del Ejercito Fuerza Aerea y Armada SNC	49
+Aiyl Bank OJSC	49
+Banca dell'Alta Murgia Credito Cooperativo- Societa cooperativa	49
+Raiffeisenbank Gilching eG	48
+Natwest Markets N.V.	48
+HSBC Bank Australia Limited	47
+National Savings Bank	47
+Raiffeisen BANK d.d. Bosna i Hercegovina	47
+Keybridge Capital Limited	47
+Acom Co, Ltd	46
+Narodni rozvojova banka, a.s.	46
+JSC Capital Bank Kazakhstan	45
+Kaspi KZ	45
+Bank of Africa	45
+Maritime & Merchant Bank ASA	45
+PayPay Bank Co., Ltd	44
+Mercantile Investments And Finance PLC	44
+Bank Spoldzielczy W Lubartowie	44
+ICBC Turkey Bank A S.	43
+Sterling Investments Limited	43
+Cathay United Bank Co Ltd	43
+IGM Financial Inc	42
+Kalika Laghubitta Bittiya Sanstha Limited	42
+Yeni Gimat Gayrimenkul Yatirim Ortakligi A.S.	41
+Kt Kira Sertifikalari Varlik Kiralama A.S	40
+Tsuruoka Shinkin Bank	40
+SBAB Bank AB	40
+Central Bank of Azerbaijan Republic	40
+Tyme Bank	40
+Bank of Tokyo-Mitsubishi UFJ Turkey A.S.	40
+Raiffeisenbank Frankenhardt - Stimpfach eG	39
+Cholamandalam Investment and Finance Company Limited	39
+BTA Bank JSC	39
+Caja Progressa	38
+UAB BANK LIMITED	38
+CREDIT SUISSE BANK (EUROPE) SA	38
+THE BANK OF NOVA SCOTIA, HONG KONG SAR BRANCH	38
+PT Mandiri Tunas Finance	38
+Cassa Centrale Banca Credito Cooperativo Italiano SpA	37
+Sumitomo Mitsui Finance & Leasing Company Limited	36
+Volksbank Euskirchen eG	35
+Pobiedzisko-Goslinski Bank Spoldzielczy W Pobiedziskach	35
+Banco Moneo SA	35
+VR Bank eG Heuberg-Winterlingen	35
+Ishimaki Shoko Credit Cooperative	35
+Bank of Tanzania	35
+Development Bank of Kenya Ltd	35
+Raiffeisenbank Lech-Ammersee Eg	35
+Tokyo Shinkin Bank	35
+Seishin Shinkin Bank	35
+Sparkasse Bank Makedonija A.D.	34
+Bangladesh Industrial Finance Company Limited	34
+Alliance Investment Bank Berhad	33
+Guotai Junan International Holdings Limited	32
+Ecobank Côte-d'Ivoire	32
+Yamagata Chuo Credit Cooperative	32
+VR Bank zwischen den Meeren eG	32
+Moldindconbank SA	32
+The Access Bank UK Limited	32
+Imari Shinkin Bank	32
+BNP Paribas Leasing Solutions AS	32
+Raiffeisen-Volksbank Hassberge eG	31
+Raiffeisenlandesbank Niederösterreich-Wien AG	31
+Bank Millennium	31
+Volksbank Dinslaken eG	31
+VR Bank Westkuste eG	30
+Banca S. Biagio del Veneto Orientale di Cesarolo e Fossalta di Portogruaro - Banca di Credito Cooperativo	30
+Country Group Holdings Public Company Limited	30
+Japan Post Bank Co Ltd	30
+JSC MICROFINANCE ORGANISATION LAZIKA CAPITAL	30
+Raiffeisenbank Aadorf	30
+Banca Raiffeisen Valposchiavo Societa Cooperativa	30
+Banco VOII S.A.	29
+Meldal Sparebank	29
+Nurbank JSC	29
+HSBC Bank Malta Plc	29
+Banque Raiffeisen Sarine-Ouest	29
+Volksbank Bösel EG	28
+Vereinte Volksbank eG	28
+Bank of Communications Co., Ltd Hong Kong Branch	28
+Tinn Sparebank	28
+City Bank Ltd	28
+National Building Society Limited	27
+Volksbank Emstal eG	27
+Mizuho International Plc	27
+Thanh Hoa Microfinance Institution Limited Liability	27
+PT Yuanta Sekuritas Indonesia	27
+Volksbank eG; Köthen - Bitterfeld	27
+Banco Bradescard SA	27
+Bank Spoldzielczy W Otwocku	26
+Volksbank Ulm-Biberach eG	26
+Haitong Bank SA	26
+Raiffeisenbank Wegenstettertal	26
+Raiffeisen-Volksbank eG	26
+Kita Osaka Shinkin Bank	25
+Arab Investment Company SAA (The)	25
+Volksbank Chemnitz eG	25
+Raiffeisenbank Nidwalden Genossenschaft	25
+Raiffeisenbank Aare-Reuss	25
+Joint-Stock Innovation Commercial Bank Ipak Yuli	25
+TIB Development Bank Limited	25
+Industrial and Commercial Bank of China (Malaysia) Berhad	25
+Ujjivan Small Finance Bank Limited	24
+Bank Spoldzielczy W Nowym Targu	24
+Bank of Africa - Madagascar	24
+Fondsdepot Bank GmbH	24
+Trinidad And Tobago Mortgage Finance Company Limited	24
+Raiffeisen Banka ad Beograd	24
+Tri City Bankshares Corporation	23
+DUCA Financial Services Credit Union Ltd	23
+Volksbank Nottuln eG	23
+ABS Factoring Bank AG	23
+Bank Polska Kasa Opieki SA	23
+Banco BAI Europa SA	23
+Volksbank Uelzen - Salzwedel eG	23
+Wakayamaken Ishi Credit Cooperative	23
+Minato Bank Ltd	23
+Stroemmen Sparebank	23
+Volksbank Ochtrup-Laer eG	23
+Hokuhoku Financial Group Inc.	22
+Raiffeisenbank Ostprignitz-Ruppin eG	22
+Banco Pan S.A.	22
+Euro Bank SA	22
+Volksbank im Bergischen Land eG	21
+Raiffeisenbank Freiburg Ost	21
+Raiffeisenbank Biebergrund-Petersberg eG	21
+PT Bank BTPN Tbk	21
+Bank of Handan Co Ltd	21
+Phillip Bank PLC	21
+Volksbank eG, Syke	21
+HSBC Bank Bermuda Limited	21
+Sparisjódur Höfdhverfinga ses.	21
+Volksbank eG Gardelegen	21
+Hongkong and Shanghai Banking Corporation Ltd - Offshore Banking Unit	21
+HSBC Bank (Vietnam) Ltd	21
+Bank of Punjab	21
+Bank of Baroda (Uganda) Limited	21
+Genossenschaftsbank Weil im Schönbuch eG	20
+Volksbank Muellheim eG	20
+American Business Bank	20
+Banco John Deere S.A.	20
+Sylter Bank Eg	20
+Volksbank Hohenlimburg Eg	20
+European American Investment Bank Ag	20
+Banca 5 SpA	20
+Raiffeisenbank Winkeln Genossenschaft	20
+Raiffeisenbank Reute- Gaisbeuren eG	20
+Vakif Gayrimenkul Yatirim Ortakligi A.S.	19
+Raiffeisenbank Hardt-Bruhrain eG	19
+Nordea Direct Bank Asa	19
+Banisi SA	19
+Raiffeisenbank Nahe eG	19
+Raiffeisenbank eG, Moormerland	19
+Oman Housing Bank (S.A.O.C.)	19
+Volksbank Main-Tauber eG	19
+Banco Central del Uruguay	19
+Banco Aliado S.A.	18
+Banco Hipotecario SA	18
+Sparbanken Syd	18
+Caixa De Crédito Agrícola Mútuo Das Serras De Ansião, C.R.L.	18
+Intermediate Capital Group Plc	18
+The Kumamoto Bank Ltd	18
+National Bank of Tajikistan	18
+Volksbank Kirnau eG	18
+Raiffeisenbank Holzkirchen-Otterfing eG	18
+PT Radana Bhaskara Finance Tbk	18
+Allianz Bank Financial Advisors S.p.A.	18
+akf bank GmbH & Co KG	18
+Sumer Faktoring A.S	18
+Goldbond Group Holdings Limited	18
+Commerzbank Zrt	18
+Cooperativa de Ahorro y Crédito La Dolorosa	18
+Raiffeisenbank im Naabtal eG	18
+Caixa De Crédito Agrícola Mútuo De Arouca, C.R.L.	18
+BANK OF AFRICA UNITED KINGDOM PLC	17
+Raiffeisenbank Noerdliche Bergstrasse Eg	17
+Dashen Bank S.C.	17
+Clearing Corporation of India Ltd (The)	17
+Nordthüringer Volksbank eG	16
+Suomen Pankki Finlands Bank	16
+Raiffeisenbank Wiesedermeer-Wiesede-Marcardsmoor eG	16
+Triodos Groenfonds NV	16
+ProCredit Bank (Albania) Sh.A	16
+PAIR Investment Company Limited	15
+Volksbank Schwanewede eG	15
+The Bank of Communications (Hong Kong) Limited	15
+Raiffeisenbank Lorup eG	15
+Raiffeisenbank Baisweil-Eggenthal-Friesenried eG	15
+Volksbank Vorbach-Tauber eG	15
+Punjab National Bank	15
+Banco de la Nacion Argentina	14
+Pulse Financial Services Limited	14
+Banco do Estado do Espirito Santo S.A. - BANESTES	14
+Global Yatirim Holding	14
+Banco di Caribe N.V.	14
+Dragon Capital (Cyprus) Limited	14
+ING Luxembourg	14
+Japan Securities Depository Center, Inc	14
+Garanti Filo Yonetim Hizmetleri Anonim Sirketi	14
+Europaisch-Iranische Handelsbank AG	14
+BSQ Bauspar AG	14
+Bank Rakyat Indonesia (Persero) Tbk	13
+Dogus Gayrimenkul Yatirim Ortakligi A.S	13
+Halk Faktoring AS	13
+Hamburger Sparkasse AG	13
+Sabah Development Berhad	13
+Washington Federal Inc	13
+Unión de Crédito para la Contaduría Pública S.A. de C.V.	13
+Kashiwazaki Shinkin Bank	13
+International Leasing And Financial Services Limited	13
+Kyokuto Securities Co., Ltd.	13
+PT Bank UOB Indonesia	13
+Raiffeisenbank Holzheim eG	12
+Raiffeisenbank Eg Simmerath	12
+Banque Malgache de l'Océan Indien - BMOI	12
+Steiermärkische Bank und Sparkassen AG	12
+Spar- Und Darlehnskasse Hoengen Eg	12
+Austrian Anadi Bank AG	12
+Byblos Bank S.A.L.	12
+Ziraat Bank Georgia	12
+Everest Bank Limited	12
+Financière Syz SA	12
+Goldman Sachs (India) Capital Markets Private Limited	12
+Vdk Bank	12
+The Kagoshima Bank Ltd	11
+National Citizen Commercial Joint Stock Bank	11
+Crédit Suisse AG	11
+Anan Shinkin Bank	11
+Federal Home Loan Bank of New York	11
+Fundación Dondé Banco	11
+Primus Guaranty, Ltd	11
+China Bohai Bank	11
+Raiffeisenbank Parsberg-Velburg eG	11
+Banca Credinvest SA	11
+COOPESPARTA R.L.	11
+Union Bank of Taiwan Public Company	11
+Tokyo City Shinkin Bank	11
+Tip Mexico SAPI DE CV	11
+Bank of Ayudhya Public Company Ltd.	10
+DBS BANK (China) Limited	10
+Ebi SA	10
+Aozora Bank Ltd	10
+Federal Home Loan Bank of Dallas	10
+Saigon Hanoi Bank Lao Ltd	10
+Toyota Kreditbank Gmbh	10
+Banco Central do Brasil	10
+Raiffeisenbank im Donautal eG	10
+Misr Bank - Europe GmbH	10
+Leonteq Securities AG	10
+Financiera Nacional de Desarrollo Agropecuario, Rural, Forestal y Pesquero	9
+BGG Bayerische Garantiegesellschaft mit beschraenkter Haftung fuer mittelstaendische	9
+PKB Privatbank AG	9
+Merkur Andelskasse	9
+Ehime Shinkin Bank	9
+Banca Popolare delle Province Molisane Societa Cooperativa per Azioni	9
+Public Bank Berhad	9
+Greater Bank Limited	9
+The Finance Company	9
+The Toho Bank Ltd	8
+Itoigawa Credit Cooperative	8
+Boursorama SA	8
+Yuanta Financial Holding Co Ltd	8
+BlueStep Bank AB (publ)	8
+First West Credit Union	8
+BGFI Holding Corporation	7
+Société de Financement d'achats à Crédit - SOFAC Crédit	7
+Axion Swiss Bank SA	7
+Tohoku Bank	7
+Banco Bradesco Europa SA	7
+Habib Bank Zurich (Hong Kong) Limited	7
+Grupo Financiero Barclays Mexico, S.A. De C.V	7
+Start Banregio S.A. de C.V. SOFOM, E.R. Banregio Grupo Financiero	7
+Bermuda Monetary Authority	7
+Eurobank Cyprus Ltd	7
+Union de Credito Promotora para el Desarrollo Economico del Estado de Mexico, S.A. de C.V.	6
+Bank Spoldzielczy W Kamiennej Gorze	6
+TCF Financial Corporation	6
+Intesa Sanpaolo	6
+Caja Rural de Salamanca Sociedad Cooperativa de Crédito	6
+Société Arabe Internationale de Banque	6
+Cooperative Bank of Oromia SC	6
+Banco de la Produccion SA - PRODUBANCO	6
+Kushiro Credit Cooperative	6
+Erste Capital Finance (Jersy) Tier 1 PC	6
+Raiffeisenbank Bad Schussenried-Aulendorf eG	6
+Raiffeisenbank Eifeltor eG	6
+Aquila AG	6
+Metbank Limited	5
+Banco de Galicia y Buenos Aires SA	5
+ING Belgium	5
+LFA Förderbank Bayern	5
+Bank Spoldzielczy w Ozarowie Centrala	5
+Raiffeisenbank im Fuldaer Land eG	5
+Citizens Holding Company	5
+Banco Financiera Comercial Hondurena - Banco Ficohsa	5
+Saffron Building Society	5
+Aresbank SA	4
+Mitsubishi UFJ Financial Group, Inc.	4
+Credito Agricola, SGPS, SA	4
+Toyoku Credit Cooperative	4
+Mayfair bank Ltd	4
+RAIFFEISEN BANK JSC	4
+Clientis Bank Toggenburg AG	4
+Raiffeisenbank Kirchheim-Walheim eG	4
+Banca di Credito Cooperativo della Marca Scrl	4
+Liberum Capital Limited	3
+Mizrahi Tefahot Bank Ltd.	3
+Mcb Seychelles Ltd	3
+Locindus S.A.	3
+Cassa Depositi e Prestiti	3
+Albaraka Bank Limited	3
+NedNamibia Holding Limited	3
+Taipei Fubon Commercial Bank Co., Ltd.	3
+Public Joint Stock Company MTB Bank	3
+Sparebanken Vest Boligkreditt As	3
+Banco Autofin México, S.A.	3
+FINANCIERA UENO S.A.E.C.A.	3
+Volksbank eG im Kreis Freudenstadt	3
+Grupo Financiero Ve por Más, S.A. de C.V	3
+Ghana Home Loans Limited	3
+Chiba Kogyo Bank	3
+Grupo Financiero Galicia SA	3
+VR Bank Saarpfalz eG	2
+Grupo Elektra Sab De Cv	2
+Charter Court Financial Services Limited	2
+Land Bank of Taiwan	2
+Capitron Bank	2
+Banco di Lucca E Del Tirreno SpA	2
+Krung Thai Bank Public Company Limited	2
+"JSC ""Poltava-Bank"""	2
+MCB Group Limited	2
+Société Générale Sénégal	2
+Raiffeisenbank Muenchen-Nord eG	2
+National Bank of Ras Al-Khaimah (P.S.C.) (The)	2
+Banque Sahélo-Saharienne pour l'Investissement et le Commerce	2
+Powszechna Kasa Oszczednosci Bank Polski SA - PKO BP SA	2
+Belize Bank Ltd	2
+Sparkasse Laubach-Hungen	2
+SPAR NORD BANK A/S	2
+Bremer Landesbank Kreditanstalt Oldenburg - Girozentrale	2
+Nedbank (Swaziland) Limited	2
+Moza Banco, S.A.	2
+Santander International Debt S.A.	2
+Security Federal Corporation	2
+Mediofactoring Spa	2
+Solar Capital Ltd	2
+Citigroup Global Markets Japan Inc	1
+GAM Holding AG	1
+Banco Citibank	1
+Armenian Development Bank OJSC	1
+Canadia Bank Plc	1
+First Metro Investment Corporation	1
+Banco Da China Brasil S.A.	1
+Alpha Bank Romania	1
+Westra Wermlands Sparbank	1
+Safra National Bank of New York	1
+Sala Sparbank	1
+Banco Finantia Spain SA	1
+Stadshypotek AB	1
+Bonki Rushdi Tojikiston	1
+RCI Banque	1
+BANCA CREDIFARMA S.P.A.	1
+Banca PSA Italia Spa	1
+Caja Popular José Ma. Mercado	1
+Toyota Financial Services México	1
+COOPE San Marco RL	1
+Varbergs Sparbank AB	1
+Natixis SA	1
+Jutlander Bank A/S	1
+Jiangxi Bank co LTD	1
+Tjustbygdens Sparbank AB	1
+Banca di Credito Cooperativo dei Colli Albani	1
+Chailease Finance Co Ltd	1
+Osaka Shinkin Bank	1
+BANCO RNX SA	1
+Högsby Sparbank	1
+Hoist Finance AB	1
+Al Rajhi Bank	1
+Citibank NA	1
+Banco de Servicios Financieros SA	1
