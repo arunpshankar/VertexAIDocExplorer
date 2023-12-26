@@ -1,3 +1,4 @@
+from src.config.logging import logger
 from pathlib import Path
 import jsonlines
 import requests
@@ -29,14 +30,17 @@ def download_file(url, destination, max_retries=3, timeout_duration=10):
                     f.write(response.content)
                 return destination
             else:
-                print(f"Failed to download {url}. Status code: {response.status_code}")
+                logger.info(f"Failed to download {url}. Status code: {response.status_code}")
                 return None
         except requests.exceptions.ConnectionError:
-            print(f"Quick retry {retries + 1}/{max_retries} for {url} due to connection error.")
+            logger.error(f"Quick retry {retries + 1}/{max_retries} for {url} due to connection error.")
             time.sleep(1)  # Short delay for quick retries
         except (requests.exceptions.Timeout, requests.exceptions.RequestException) as e:
-            print(f"Retry {retries + 1}/{max_retries} for {url}. Error: {type(e).__name__}")
-            time.sleep(10)  # Delay for other errors
+            logger.error(f"Retry {retries + 1}/{max_retries} for {url}. Error: {type(e).__name__}")
+            time.sleep(1)  # Delay for other errors
+        except Exception as e:
+            logger.error(type(e).__name__)
+
 
         retries += 1
 
@@ -95,4 +99,5 @@ def download_from_csv(csv_path, output_folder):
                 filename = url.split('/')[-1]
                 sanitized_filename = sanitize_filename(filename)
                 destination = f'{output_path}/{sanitized_filename}'
+                logger.info(f'Downloading PDF from: {url}')
                 download_file(url, destination)

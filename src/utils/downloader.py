@@ -1,3 +1,4 @@
+from aiohttp import ServerDisconnectedError
 from aiohttp import ClientConnectorError
 from aiohttp import ClientPayloadError
 from aiofiles import open as aio_open
@@ -10,7 +11,7 @@ import asyncio
 import csv
 
 
-async def download_file(session, url, destination, max_retries=3, timeout_duration=10):
+async def download_file(session, url, destination, max_retries=10, timeout_duration=10):
     """
     Asynchronously downloads a file from a given URL and saves it to the specified destination. 
     Implements retry logic with quick retries for certain connection errors.
@@ -40,9 +41,11 @@ async def download_file(session, url, destination, max_retries=3, timeout_durati
         except ClientConnectorError as e:
             logger.error(f"Quick retry {retries + 1}/{max_retries} for {url} due to connection error.")
             await asyncio.sleep(1)  # Short delay for quick retries
-        except (asyncio.TimeoutError, ClientPayloadError) as e:
+        except (asyncio.TimeoutError, ClientPayloadError, ServerDisconnectedError) as e:
             logger.error(f"Retry {retries + 1}/{max_retries} for {url}. Error: {type(e).__name__}")
-            await asyncio.sleep(10)  # Delay for other errors
+            await asyncio.sleep(1)  # Delay for other errors
+        except Exception as e:
+            logger.error(type(e).__name__)
 
         retries += 1
 

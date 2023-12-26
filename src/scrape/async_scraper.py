@@ -57,7 +57,7 @@ class PDFScraper:
                 domain = extract_root_domain(url)
                 if domain == root_domain:
                     non_pdf_urls.add(url)
-
+        """
         for non_pdf_url in non_pdf_urls:
             urls = self._scrape_urls_from_page_sync(non_pdf_url)
             for url in urls:
@@ -66,6 +66,7 @@ class PDFScraper:
                 elif ".pdf" in url and 'inline' in url:
                     pdf_url = url.split('?')[0]
                     unique_pdf_urls.add(pdf_url)
+        """
 
         return unique_pdf_urls
 
@@ -82,8 +83,8 @@ def extract_root_domain(url: str) -> str:
     """
     try:
         parsed_url = urlparse(url)
-        root_domain = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_url)
-        return root_domain
+        root_domain = parsed_url.netloc.split(':')[0]
+        return f'https://{root_domain}'
     except Exception as e:
         logger.error(f"Error extracting domain: {e}")
         return ''
@@ -173,7 +174,7 @@ async def scrape_to_file_async(input_file_path: str, webdriver_path: str, output
 # Entry point
 if __name__ == '__main__':
     asyncio.run(scrape_to_file_async(
-        input_file_path='./src/scrape/input_urls_1000.csv',
+        input_file_path='./src/scrape/input_urls.csv',
         webdriver_path='./src/scrape/chromedriver',
-        output_file_path='./src/scrape/pdf_urls_1000.csv'
+        output_file_path='./src/scrape/pdf_urls.csv'
     ))

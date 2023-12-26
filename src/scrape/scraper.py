@@ -148,8 +148,8 @@ def extract_root_domain(url: str) -> str:
     """
     try:
         parsed_url = urlparse(url)
-        root_domain = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_url)
-        return root_domain
+        root_domain = parsed_url.netloc.split(':')[0]
+        return f'https://{root_domain}'
     except Exception as e:
         logger.error(f"Error extracting domain: {e}")
         return ''
