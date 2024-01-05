@@ -40,7 +40,7 @@
 {"bank_name":"BMW Albatha Finance PSC","country":"UNITED ARAB EMIRATES","site_url":"site:lbatha.com\/"}
 {"bank_name":"Bank of Baroda - UAE branch","country":"UNITED ARAB EMIRATES","site_url":"site:ankofbarodauae.ae\/"}
 {"bank_name":"Arab Bank Plc - United Arab Emirates Branches","country":"UNITED ARAB EMIRATES","site_url":"site:rabbank.ae\/"}
-{"bank_name":"Standard Chartered Bank- UAE Branches","country":"UNITED ARAB EMIRATES","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank- UAE Branches","country":"UNITED ARAB EMIRATES","site_url":"site:sc.com\/"}
 {"bank_name":"Emirates Development Bank","country":"UNITED ARAB EMIRATES","site_url":"site:db.ae\/"}
 {"bank_name":"Afghanistan Commercial Bank","country":"AFGHANISTAN","site_url":"site:acb.af\/"}
 {"bank_name":"Ghazanfar Bank","country":"AFGHANISTAN","site_url":"site:hazanfarbank.com\/"}
@@ -119,7 +119,7 @@
 {"bank_name":"Banco de Desenvolvimento de Angola","country":"ANGOLA","site_url":"site:bda.ao\/"}
 {"bank_name":"Banco Prestigio, S.A.","country":"ANGOLA","site_url":"site:ancoprestigio.ao\/"}
 {"bank_name":"Banco Credito Do Sul","country":"ANGOLA","site_url":"site:ancobcs.ao\/"}
-{"bank_name":"Standard Chartered Bank Angola, S.A.","country":"ANGOLA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Angola, S.A.","country":"ANGOLA","site_url":"site:sc.com\/"}
 {"bank_name":"Banco Valor, S.A.","country":"ANGOLA","site_url":"site:ancovalor.ao\/"}
 {"bank_name":"Banco BIR","country":"ANGOLA","site_url":"site:ir.ao\/"}
 {"bank_name":"Banco VTB Africa SA","country":"ANGOLA","site_url":"site:tb.ao\/"}
@@ -643,7 +643,7 @@
 {"bank_name":"Modhumoti Bank Limited","country":"BANGLADESH","site_url":"site:odhumotibankltd.com\/"}
 {"bank_name":"Union Bank Limited","country":"BANGLADESH","site_url":"site:nionbank.com.bd\/"}
 {"bank_name":"Rajshahi Krishi Unnayan Bank","country":"BANGLADESH","site_url":"site:akub.org.bd\/"}
-{"bank_name":"Standard Chartered Bank","country":"BANGLADESH","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank","country":"BANGLADESH","site_url":"site:sc.com\/"}
 {"bank_name":"IDLC Finance Limited","country":"BANGLADESH","site_url":"site:idlc.com\/"}
 {"bank_name":"Delta Brac Housing Finance Corporation Ltd","country":"BANGLADESH","site_url":"site:dbhfinance.com\/"}
 {"bank_name":"Islamic Finance And Investment Limited","country":"BANGLADESH","site_url":"site:ifilbd.com\/"}
@@ -1113,7 +1113,7 @@
 {"bank_name":"Travelex Banco De Cambio S.A.","country":"BRAZIL","site_url":"site:onfidencecambio.com.br\/"}
 {"bank_name":"Finaxis SA","country":"BRAZIL","site_url":"site:finaxis.com.br\/"}
 {"bank_name":"Gazincred S.A. Sociedade De Crédito, Financiamento E Investimento","country":"BRAZIL","site_url":"site:azincred.com.br\/"}
-{"bank_name":"Standard Chartered Bank (Brasil) S.A.   Banco De Investimento","country":"BRAZIL","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank (Brasil) S.A.   Banco De Investimento","country":"BRAZIL","site_url":"site:sc.com\/"}
 {"bank_name":"Senff S.A. - Crédito, Financiamento E Investimento","country":"BRAZIL","site_url":"site:financeirasenff.com.br\/"}
 {"bank_name":"Cooperativa De Crédito De Livre Admissão De Associados De Jaraguá Do Sul E Região","country":"BRAZIL","site_url":"site:icoobsc.com.br\/"}
 {"bank_name":"Creditá S\/A Crédito, Financiamento E Investimento","country":"BRAZIL","site_url":"site:creditasa.com.br\/"}
@@ -1485,7 +1485,7 @@
 {"bank_name":"Botswana Savings Bank","country":"BOTSWANA","site_url":"site:sb.bw\/"}
 {"bank_name":"Letshego Holdings Limited","country":"BOTSWANA","site_url":"site:etshego.com\/"}
 {"bank_name":"Bank Gaborone Limited","country":"BOTSWANA","site_url":"site:ankgaborone.co.bw\/"}
-{"bank_name":"Standard Chartered Bank Botswana Ltd","country":"BOTSWANA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Botswana Ltd","country":"BOTSWANA","site_url":"site:sc.com\/"}
 {"bank_name":"Absa Bank Botswana Limited","country":"BOTSWANA","site_url":"site:bsa.co.bw\/"}
 {"bank_name":"Bank of Botswana","country":"BOTSWANA","site_url":"site:ankofbotswana.bw\/"}
 {"bank_name":"BBS BANK LIMITED","country":"BOTSWANA","site_url":"site:bs.co.bw\/"}
@@ -2046,7 +2046,7 @@
 {"bank_name":"Ecobank Côte-d'Ivoire","country":"IVORY COAST","site_url":"site:rvm.org\/"}
 {"bank_name":"Banque de l'Habitat de Côte d'Ivoire","country":"IVORY COAST","site_url":"site:hci.ci\/"}
 {"bank_name":"Banque Nationale d'Investissement - BNI","country":"IVORY COAST","site_url":"site:ni.ci\/"}
-{"bank_name":"Standard Chartered Bank Côte d'Ivoire SA","country":"IVORY COAST","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Côte d'Ivoire SA","country":"IVORY COAST","site_url":"site:sc.com\/"}
 {"bank_name":"Citibank","country":"IVORY COAST","site_url":"site:itigroup.com\/"}
 {"bank_name":"Bridge Bank Group","country":"IVORY COAST","site_url":"site:ridgebankgroup.com\/"}
 {"bank_name":"Orabank- Cote d'Ivoire","country":"IVORY COAST","site_url":"site:rabank.net\/"}
@@ -2208,7 +2208,7 @@
 {"bank_name":"Shanghai Automotive Group Finance Co Ltd","country":"CHINA-PEOPLE'S REP.","site_url":"site:aicfinance.com\/"}
 {"bank_name":"Mizuho Bank (China) Ltd","country":"CHINA-PEOPLE'S REP.","site_url":"site:izuhobank.com\/"}
 {"bank_name":"KEB HANA BANK CHINA COMPANY LIMITED","country":"CHINA-PEOPLE'S REP.","site_url":"site:anabank.cn\/"}
-{"bank_name":"Standard Chartered Bank (China) Ltd","country":"CHINA-PEOPLE'S REP.","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank (China) Ltd","country":"CHINA-PEOPLE'S REP.","site_url":"site:sc.com\/"}
 {"bank_name":"DBS BANK (China) Limited","country":"CHINA-PEOPLE'S REP.","site_url":"site:bs.com.cn\/"}
 {"bank_name":"Woori Bank (China) Ltd","country":"CHINA-PEOPLE'S REP.","site_url":"site:ooribankchina.com\/"}
 {"bank_name":"Great Wall West China Bank","country":"CHINA-PEOPLE'S REP.","site_url":"site:wbank.com.cn\/"}
@@ -4868,7 +4868,7 @@
 {"bank_name":"N M Rothschild & Sons Limited","country":"UNITED KINGDOM","site_url":"site:othschild.com\/"}
 {"bank_name":"National Westminster Bank Plc - NatWest","country":"UNITED KINGDOM","site_url":"site:nvestors.rbs.com\/"}
 {"bank_name":"Tandem Bank Limited","country":"UNITED KINGDOM","site_url":"site:andem.co.uk\/"}
-{"bank_name":"Standard Chartered Plc","country":"UNITED KINGDOM","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Plc","country":"UNITED KINGDOM","site_url":"site:sc.com\/"}
 {"bank_name":"Co-operative Bank Plc (The)","country":"UNITED KINGDOM","site_url":"site:o-operativebank.co.uk\/"}
 {"bank_name":"RBC Europe Limited","country":"UNITED KINGDOM","site_url":"site:bc.com\/"}
 {"bank_name":"RATHBONES GROUP PLC","country":"UNITED KINGDOM","site_url":"site:athbones.com\/"}
@@ -5191,7 +5191,7 @@
 {"bank_name":"CalBank PLC","country":"GHANA","site_url":"site:calbankinvestor.net\/"}
 {"bank_name":"Bank of Ghana","country":"GHANA","site_url":"site:og.gov.gh\/"}
 {"bank_name":"GCB Bank Limited","country":"GHANA","site_url":"site:cbbank.com.gh\/"}
-{"bank_name":"Standard Chartered Bank Ghana Plc","country":"GHANA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Ghana Plc","country":"GHANA","site_url":"site:sc.com\/"}
 {"bank_name":"Prudential Bank Limited","country":"GHANA","site_url":"site:rudentialbank.com.gh\/"}
 {"bank_name":"FBN Bank (Ghana) Limited","country":"GHANA","site_url":"site:bnbankghana.com\/"}
 {"bank_name":"First Atlantic Bank Limited","country":"GHANA","site_url":"site:firstatlanticbank.com.gh\/"}
@@ -5321,7 +5321,7 @@
 {"bank_name":"China CITIC Bank International Limited","country":"HONG KONG","site_url":"site:ncbinternational.com\/"}
 {"bank_name":"Tai Yau Bank Limited","country":"HONG KONG","site_url":"site:ybhk.com.hk\/"}
 {"bank_name":"Dah Sing Banking Group Limited","country":"HONG KONG","site_url":"site:ahsing.com\/"}
-{"bank_name":"Standard Chartered Bank (Hong Kong) Limited","country":"HONG KONG","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank (Hong Kong) Limited","country":"HONG KONG","site_url":"site:sc.com\/"}
 {"bank_name":"KDB Asia Limited","country":"HONG KONG","site_url":"site:db.co.kr\/"}
 {"bank_name":"Allied Banking Corporation (Hong Kong) Limited","country":"HONG KONG","site_url":"site:bchkl.com.hk\/"}
 {"bank_name":"Sun Hung Kai & Co. Limited","country":"HONG KONG","site_url":"site:hkco.com\/"}
@@ -5596,7 +5596,7 @@
 {"bank_name":"PT Reliance Sekuritas Indonesia Tbk","country":"INDONESIA","site_url":"site:reliance-securities.com\/"}
 {"bank_name":"Pt Bank Pembangunan Daerah Kalimantan Tengah","country":"INDONESIA","site_url":"site:ankkalteng.co.id\/"}
 {"bank_name":"Bank of China Limited (Jakarta Branch)","country":"INDONESIA","site_url":"site:ankofchina.co.id\/"}
-{"bank_name":"Standard Chartered Bank Indonesia","country":"INDONESIA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Indonesia","country":"INDONESIA","site_url":"site:sc.com\/"}
 {"bank_name":"Bank Amar Indonesia, Pt","country":"INDONESIA","site_url":"site:amarbank.co.id\/"}
 {"bank_name":"PT Yuanta Sekuritas Indonesia","country":"INDONESIA","site_url":"site:uanta.co.id\/"}
 {"bank_name":"Pt Bima Multi Finance","country":"INDONESIA","site_url":"site:imafinance.co.id\/"}
@@ -5809,7 +5809,7 @@
 {"bank_name":"SREI Infrastructure Finance Limited","country":"INDIA","site_url":"site:rei.com\/"}
 {"bank_name":"IDFC Limited","country":"INDIA","site_url":"site:dfclimited.com\/"}
 {"bank_name":"Power Finance Corporation Limited","country":"INDIA","site_url":"site:fcindia.com\/"}
-{"bank_name":"Standard Chartered Bank - Indian Branches incorporated in the UK","country":"INDIA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank - Indian Branches incorporated in the UK","country":"INDIA","site_url":"site:sc.com\/"}
 {"bank_name":"Bank of America N.A. - India Branch","country":"INDIA","site_url":"site:ofa-india.com\/"}
 {"bank_name":"Indiabulls Housing Finance Limited","country":"INDIA","site_url":"site:ndiabullshomeloans.com\/"}
 {"bank_name":"Toyota Financial Services India Limited","country":"INDIA","site_url":"site:oyotafinance.co.in\/"}
@@ -7101,7 +7101,7 @@
 {"bank_name":"Shizuoka Labour Bank","country":"JAPAN","site_url":"site:shizuoka.rokin.or.jp\/"}
 {"bank_name":"Ja Bank-Kagawa Shinren","country":"JAPAN","site_url":"site:abank-kagawa.or.jp\/"}
 {"bank_name":"Bank of Africa Kenya Limited","country":"KENYA","site_url":"site:oakenya.com\/"}
-{"bank_name":"Standard Chartered Bank Kenya","country":"KENYA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Kenya","country":"KENYA","site_url":"site:sc.com\/"}
 {"bank_name":"Stanbic Holdings Plc","country":"KENYA","site_url":"site:tanbicbank.co.ke\/"}
 {"bank_name":"Gulf African Bank Limited","country":"KENYA","site_url":"site:gulfafricanbank.com\/"}
 {"bank_name":"First Community Bank Limited","country":"KENYA","site_url":"site:firstcommunitybank.co.ke\/"}
@@ -7779,7 +7779,7 @@
 {"bank_name":"Bank Sinopac, Macau Branch","country":"MACAU","site_url":"site:o.gov.mo\/"}
 {"bank_name":"The Hongkong and Shanghai Banking Corporation Limited, Macau Branch","country":"MACAU","site_url":"site:sbc.com\/"}
 {"bank_name":"Citibank NA Macau Branch","country":"MACAU","site_url":"site:itigroup.com\/"}
-{"bank_name":"Standard Chartered Bank Macau Branch","country":"MACAU","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Macau Branch","country":"MACAU","site_url":"site:sc.com\/"}
 {"bank_name":"La Banque Islamique de Mauritanie","country":"MAURITANIA","site_url":"site:a-holding.com\/"}
 {"bank_name":"Banque Centrale de Mauritanie","country":"MAURITANIA","site_url":"site:cm.mr\/"}
 {"bank_name":"Banque Mauritanienne pour le Commerce International","country":"MAURITANIA","site_url":"site:bmci.mr\/"}
@@ -7813,7 +7813,7 @@
 {"bank_name":"Bank One Limited","country":"MAURITIUS","site_url":"site:bankone.mu\/"}
 {"bank_name":"Standard Bank (Mauritius) Limited","country":"MAURITIUS","site_url":"site:tandardbank.mu\/"}
 {"bank_name":"Brait PLC","country":"MAURITIUS","site_url":"site:brait.investoreports.com\/"}
-{"bank_name":"Standard Chartered Bank (Mauritius) Limited","country":"MAURITIUS","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank (Mauritius) Limited","country":"MAURITIUS","site_url":"site:sc.com\/"}
 {"bank_name":"The Hongkong and Shanghai Banking Corporation Limited – Mauritius Branch","country":"MAURITIUS","site_url":"site:bout.hsbc.co.mu\/"}
 {"bank_name":"AfrAsia Bank Ltd","country":"MAURITIUS","site_url":"site:investor-relations.afrasiabank.com\/"}
 {"bank_name":"Bank of Mauritius","country":"MAURITIUS","site_url":"site:om.mu\/"}
@@ -8061,7 +8061,7 @@
 {"bank_name":"Valmex Soluciones Financieras, S.A. De C.V.","country":"MEXICO","site_url":"site:olvimas.com\/"}
 {"bank_name":"Hong Leong Investment Bank Berhad","country":"MALAYSIA","site_url":"site:lcap.com.my\/"}
 {"bank_name":"Sabah Development Berhad","country":"MALAYSIA","site_url":"site:abahdevbank.com\/"}
-{"bank_name":"Standard Chartered Bank Malaysia Berhad","country":"MALAYSIA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Malaysia Berhad","country":"MALAYSIA","site_url":"site:sc.com\/"}
 {"bank_name":"HSBC Bank Malaysia Berhad","country":"MALAYSIA","site_url":"site:sbc.com\/"}
 {"bank_name":"CIMB Bank Berhad","country":"MALAYSIA","site_url":"site:imb.com\/"}
 {"bank_name":"Public Islamic Bank Berhad","country":"MALAYSIA","site_url":"site:ublicislamicbank.com.my\/"}
@@ -8122,7 +8122,7 @@
 {"bank_name":"HSBC Amanah Malaysia Berhad","country":"MALAYSIA","site_url":"site:sbcamanah.com.my\/"}
 {"bank_name":"Bank Pertanian Malaysia Berhad","country":"MALAYSIA","site_url":"site:grobank.com.my\/"}
 {"bank_name":"OCBC Al-Amin Bank Berhad","country":"MALAYSIA","site_url":"site:cbc.com.my\/"}
-{"bank_name":"Standard Chartered Saadiq Berhad","country":"MALAYSIA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Saadiq Berhad","country":"MALAYSIA","site_url":"site:sc.com\/"}
 {"bank_name":"Industrial and Commercial Bank of China (Malaysia) Berhad","country":"MALAYSIA","site_url":"site:malaysia.icbc.com.cn\/"}
 {"bank_name":"AmBank (M) Berhad","country":"MALAYSIA","site_url":"site:mbankgroup.com\/"}
 {"bank_name":"Alliance Bank Malaysia Berhad","country":"MALAYSIA","site_url":"site:lliancebank.com.my\/"}
@@ -8142,7 +8142,7 @@
 {"bank_name":"Kumpulan Wang Persaraan (Diperbadankan)","country":"MALAYSIA","site_url":"site:wap.gov.my\/"}
 {"bank_name":"Bank Persatuan Malaysia Berhad","country":"MALAYSIA","site_url":"site:bp.com.my\/"}
 {"bank_name":"Public Bank (L) Ltd","country":"MALAYSIA","site_url":"site:blebank.com\/"}
-{"bank_name":"Suruhanjaya Sekuriti Securities Commission Malaysia","country":"MALAYSIA","site_url":"site:c.com.my\/"}
+{"bank_name":"Suruhanjaya Sekuriti Securities Commission Malaysia","country":"MALAYSIA","site_url":"site:sc.com.my\/"}
 {"bank_name":"Lembaga Tabung Haji","country":"MALAYSIA","site_url":"site:abunghaji.gov.my\/"}
 {"bank_name":"China Construction Bank (Malaysia) Berhad","country":"MALAYSIA","site_url":"site:cb.com\/"}
 {"bank_name":"Banco Terra, S.A.","country":"MOZAMBIQUE","site_url":"site:tm.co.mz\/"}
@@ -8216,7 +8216,7 @@
 {"bank_name":"United Bank for Africa Plc","country":"NIGERIA","site_url":"site:bagroup.com\/"}
 {"bank_name":"FBNQuest Merchant Bank Limited","country":"NIGERIA","site_url":"site:fbnquest.com\/"}
 {"bank_name":"ASO Savings and Loans Plc","country":"NIGERIA","site_url":"site:soplc.com\/"}
-{"bank_name":"Standard Chartered Bank Nigeria Limited","country":"NIGERIA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Nigeria Limited","country":"NIGERIA","site_url":"site:sc.com\/"}
 {"bank_name":"United Capital Plc","country":"NIGERIA","site_url":"site:unitedcapitalplcgroup.com\/"}
 {"bank_name":"First City Monument Bank Ltd","country":"NIGERIA","site_url":"site:fcmbgroup.gcs-web.com\/"}
 {"bank_name":"Jaiz Bank PLC","country":"NIGERIA","site_url":"site:jaizbankplc.com\/"}
@@ -8487,7 +8487,7 @@
 {"bank_name":"Nepal SBI Bank Ltd","country":"NEPAL","site_url":"site:nsbl.statebank\/"}
 {"bank_name":"Nabil Bank Limited","country":"NEPAL","site_url":"site:abilbank.com\/"}
 {"bank_name":"NMB Bank Ltd","country":"NEPAL","site_url":"site:nmbbanknepal.com\/"}
-{"bank_name":"Standard Chartered Bank Nepal Limited","country":"NEPAL","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Nepal Limited","country":"NEPAL","site_url":"site:sc.com\/"}
 {"bank_name":"Central Finance Ltd","country":"NEPAL","site_url":"site:centralfinance.com.np\/"}
 {"bank_name":"Nepal Investment Mega Bank Limited","country":"NEPAL","site_url":"site:imb.com.np\/"}
 {"bank_name":"Himalayan Bank Limited","country":"NEPAL","site_url":"site:imalayanbank.com\/"}
@@ -8791,7 +8791,7 @@
 {"bank_name":"Bank of Khyber","country":"PAKISTAN","site_url":"site:ok.com.pk\/"}
 {"bank_name":"JS Bank Limited","country":"PAKISTAN","site_url":"site:sbl.com\/"}
 {"bank_name":"Dawood Equities Limited","country":"PAKISTAN","site_url":"site:dawoodequities.com\/"}
-{"bank_name":"Standard Chartered Bank (Pakistan)","country":"PAKISTAN","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank (Pakistan)","country":"PAKISTAN","site_url":"site:sc.com\/"}
 {"bank_name":"Pak Brunei Investment Company Limited","country":"PAKISTAN","site_url":"site:pakbrunei.com.pk\/"}
 {"bank_name":"PAIR Investment Company Limited","country":"PAKISTAN","site_url":"site:pairinvestment.com\/"}
 {"bank_name":"Pak China Investment Company Limited","country":"PAKISTAN","site_url":"site:pakchinainvest.com\/"}
@@ -9781,7 +9781,7 @@
 {"bank_name":"UOB Kay Hian Holdings Limited","country":"SINGAPORE","site_url":"site:ir.chartnexus.com\/"}
 {"bank_name":"Net Pacific Financial Holdings Ltd","country":"SINGAPORE","site_url":"site:etpac.com.sg\/"}
 {"bank_name":"Citibank Singapore Limited","country":"SINGAPORE","site_url":"site:itibank.com.sg\/"}
-{"bank_name":"Standard Chartered Bank (Singapore) Limited","country":"SINGAPORE","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank (Singapore) Limited","country":"SINGAPORE","site_url":"site:sc.com\/"}
 {"bank_name":"HSBC Bank (Singapore) Limited","country":"SINGAPORE","site_url":"site:bout.hsbc.com.sg\/"}
 {"bank_name":"Maybank Singapore Limited","country":"SINGAPORE","site_url":"site:aybank2u.com.sg\/"}
 {"bank_name":"Monetary Authority of Singapore","country":"SINGAPORE","site_url":"site:as.gov.sg\/"}
@@ -9926,7 +9926,7 @@
 {"bank_name":"KGI Securities (Thailand) Public Company Limited","country":"THAILAND","site_url":"site:gieworld.co.th\/"}
 {"bank_name":"Kasikornbank Public Company Limited","country":"THAILAND","site_url":"site:asikornbank.com\/"}
 {"bank_name":"Bangkok Bank Public Company Limited","country":"THAILAND","site_url":"site:angkokbank.com\/"}
-{"bank_name":"Standard Chartered Bank (Thai) Public Company Limited","country":"THAILAND","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank (Thai) Public Company Limited","country":"THAILAND","site_url":"site:sc.com\/"}
 {"bank_name":"Thanachart Capital Public Company Limited","country":"THAILAND","site_url":"site:hanachart.co.th\/"}
 {"bank_name":"Srisawad Finance Public Company Limited","country":"THAILAND","site_url":"site:fit.co.th\/"}
 {"bank_name":"Kiatnakin Phatra Public Company Limited","country":"THAILAND","site_url":"site:ir.kkpfg.com\/"}
@@ -10042,7 +10042,7 @@
 {"bank_name":"D Yatırım Bankası Anonim Şirketi","country":"TURKEY","site_url":"site:dybank.com.tr\/"}
 {"bank_name":"ISTANBUL VARLIK YONETIM ANONIM SIRKETI","country":"TURKEY","site_url":"site:ap.org.tr\/"}
 {"bank_name":"Is Finansal Kiralama AS","country":"TURKEY","site_url":"site:sleasing.com.tr\/"}
-{"bank_name":"Standard Chartered Yatirim Bankasi Turk AS","country":"TURKEY","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Yatirim Bankasi Turk AS","country":"TURKEY","site_url":"site:sc.com\/"}
 {"bank_name":"BOGAZICI VARLIK YONETIM ANONIM SIRKETI","country":"TURKEY","site_url":"site:ogazicivarlik.com.tr\/"}
 {"bank_name":"EMIR VARLIK YONETIM AS","country":"TURKEY","site_url":"site:mirvarlik.com\/"}
 {"bank_name":"DESTEK YATIRIM BANKASI ANONIM SIRKETI","country":"TURKEY","site_url":"site:estekbank.com\/"}
@@ -10270,7 +10270,7 @@
 {"bank_name":"Taiwan Financial Holdings","country":"TAIWAN","site_url":"site:wfhc.com.tw\/"}
 {"bank_name":"BankTaiwan Securities","country":"TAIWAN","site_url":"site:wfhcsec.com.tw\/"}
 {"bank_name":"HSBC Bank (Taiwan) Limited","country":"TAIWAN","site_url":"site:sbc.com.tw\/"}
-{"bank_name":"Standard Chartered Bank (Taiwan) Limited","country":"TAIWAN","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank (Taiwan) Limited","country":"TAIWAN","site_url":"site:sc.com\/"}
 {"bank_name":"Chang Hwa Commercial Bank Ltd.","country":"TAIWAN","site_url":"site:ankchb.com\/"}
 {"bank_name":"Taichung Commercial Bank","country":"TAIWAN","site_url":"site:cbbank.com.tw\/"}
 {"bank_name":"DBS Bank (Taiwan)","country":"TAIWAN","site_url":"site:bs.com.tw\/"}
@@ -10334,7 +10334,7 @@
 {"bank_name":"EXIM BANK (TANZANIA) LIMITED","country":"TANZANIA","site_url":"site:ximbank.co.tz\/"}
 {"bank_name":"National Bank of Commerce Limited","country":"TANZANIA","site_url":"site:bctz.com\/"}
 {"bank_name":"NCBA Bank Tanzania Limited","country":"TANZANIA","site_url":"site:ncbagroup.co.tz\/"}
-{"bank_name":"Standard Chartered Bank Tanzania Limited","country":"TANZANIA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Tanzania Limited","country":"TANZANIA","site_url":"site:sc.com\/"}
 {"bank_name":"Kenya Commercial Bank (Tanzania) Limited","country":"TANZANIA","site_url":"site:tz.kcbgroup.com\/"}
 {"bank_name":"CRDB Bank Plc","country":"TANZANIA","site_url":"site:crdbbank.co.tz\/"}
 {"bank_name":"STANBIC BANK TANZANIA LIMITED","country":"TANZANIA","site_url":"site:tanbicbank.co.tz\/"}
@@ -10439,7 +10439,7 @@
 {"bank_name":"DFCU Limited","country":"UGANDA","site_url":"site:fcugroup.com\/"}
 {"bank_name":"Housing Finance Bank Limited","country":"UGANDA","site_url":"site:ousingfinance.co.ug\/"}
 {"bank_name":"Bank of Baroda (Uganda) Limited","country":"UGANDA","site_url":"site:ankofbaroda.ug\/"}
-{"bank_name":"Standard Chartered Bank Limited","country":"UGANDA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Limited","country":"UGANDA","site_url":"site:sc.com\/"}
 {"bank_name":"Absa Bank Uganda Limited","country":"UGANDA","site_url":"site:bsa.co.ug\/"}
 {"bank_name":"DFCU Bank Limited","country":"UGANDA","site_url":"site:fcugroup.com\/"}
 {"bank_name":"CENTENARY RURAL DEVELOPMENT GROUP LIMITED","country":"UGANDA","site_url":"site:entenarybank.co.ug\/"}
@@ -11432,7 +11432,7 @@
 {"bank_name":"Ithala Soc Limited","country":"SOUTH AFRICA","site_url":"site:provincialgovernment.co.za\/"}
 {"bank_name":"Zambia National Commercial Bank Plc","country":"ZAMBIA","site_url":"site:anacoinvestor.com\/"}
 {"bank_name":"Absa Bank Zambia PLC","country":"ZAMBIA","site_url":"site:bsa.co.zm\/"}
-{"bank_name":"Standard Chartered Bank Zambia Plc","country":"ZAMBIA","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Zambia Plc","country":"ZAMBIA","site_url":"site:sc.com\/"}
 {"bank_name":"Stanbic Bank Zambia Limited","country":"ZAMBIA","site_url":"site:tanbicbank.co.zm\/"}
 {"bank_name":"Indo-Zambia Bank Limited","country":"ZAMBIA","site_url":"site:zb.co.zm\/"}
 {"bank_name":"Finance Bank Zambia Limited","country":"ZAMBIA","site_url":"site:inancebank.co.zm\/"}
@@ -11456,7 +11456,7 @@
 {"bank_name":"FBC Holdings Limited","country":"ZIMBABWE","site_url":"site:bc.co.zw\/"}
 {"bank_name":"CBZ Holdings Limited","country":"ZIMBABWE","site_url":"site:bz.co.zw\/"}
 {"bank_name":"Central Africa Building Society","country":"ZIMBABWE","site_url":"site:abs.co.zw\/"}
-{"bank_name":"Standard Chartered Bank Zimbabwe Ltd","country":"ZIMBABWE","site_url":"site:c.com\/"}
+{"bank_name":"Standard Chartered Bank Zimbabwe Ltd","country":"ZIMBABWE","site_url":"site:sc.com\/"}
 {"bank_name":"First Capital Bank Ltd","country":"ZIMBABWE","site_url":"site:irstcapitalbank.co.zw\/"}
 {"bank_name":"ZB Bank Limited","country":"ZIMBABWE","site_url":"site:b.co.zw\/"}
 {"bank_name":"African Banking Corporation Zimbabwe Ltd","country":"ZIMBABWE","site_url":"site:ancabc.co.zw\/"}
