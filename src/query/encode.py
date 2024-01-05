@@ -60,5 +60,5 @@ def load_and_index(file_path: str) -> FAISS:
 
 
 if __name__ == "__main__":
-    vector_store = load_and_index("./src/query/banks_all.jsonl")
+    vector_store = load_and_index("./src/query/banks.jsonl")
     vector_store.save_local("./src/query/faiss_index")
